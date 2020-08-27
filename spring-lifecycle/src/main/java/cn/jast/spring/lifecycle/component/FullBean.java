@@ -9,18 +9,18 @@ import javax.annotation.PreDestroy;
 /**
  * FullBean的初始化及销毁：
  * FullBean constructor
- * BeanNameAware.setBeanName
- * BeanClassLoaderAware.setBeanClassLoader
- * BeanFactoryAware.setBeanFactory
+ * FullBean BeanNameAware.setBeanName
+ * FullBean BeanClassLoaderAware.setBeanClassLoader
+ * FullBean BeanFactoryAware.setBeanFactory
  * CustomerBeanPostProcessor.postProcessBeforeInitialization,beanName=fullBean
- * @PostConstruct 标注的方法
- * InitializingBean.afterPropertiesSet
- * custom init
+ * FullBean @PostConstruct 标注的方法
+ * FullBean InitializingBean.afterPropertiesSet
+ * FullBean custom init
  * CustomerBeanPostProcessor.postProcessAfterInitialization,beanName=fullBean
  * hello
- * @PreDestroy 标注的方法
- * DisposableBean.destroy
- * custom destory
+ * FullBean @PreDestroy 标注的方法
+ * FullBean DisposableBean.destroy
+ * FullBean custom destory
  */
 public class FullBean implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware, InitializingBean, DisposableBean {
 
