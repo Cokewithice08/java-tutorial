@@ -23,10 +23,20 @@ import javax.annotation.PreDestroy;
  * FullBean custom destory
  */
 public class FullBean implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware, InitializingBean, DisposableBean {
+    private String hello;
 
     public FullBean() {
         System.out.println("\n\n");
         System.out.println("FullBean constructor");
+    }
+
+    public String getHello() {
+        return hello;
+    }
+
+    public void setHello(String hello) {
+        System.out.println("setHello");
+        this.hello = hello;
     }
 
     public void setBeanClassLoader(ClassLoader classLoader) {
