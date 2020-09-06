@@ -9,8 +9,12 @@ import java.lang.reflect.Field;
  * a
  * this$0
  *
+ * MyClass1{i=0, j=0, a=0}
+ * i
+ * j
  * a
- * MyClass1{i=0, j=0, a=1}
+ * c
+ * MyClass1{i=1, j=1, a=1}
  */
 public class ClassFields {
 
@@ -22,7 +26,8 @@ public class ClassFields {
         System.out.println("");
         Class integer1 = MyClass1.class;
         MyClass1 myClass1 = new MyClass1();
-        for (Field field : integer1.getFields()) {
+        System.out.println(myClass1);
+        for (Field field : integer1.getDeclaredFields()) {
             System.out.println(field.getName());
             if(field.isAccessible()==false){
                 field.setAccessible(true);
@@ -36,8 +41,6 @@ public class ClassFields {
         private int i;
         protected int j;
         public int a;
-
-
     }
 
 }

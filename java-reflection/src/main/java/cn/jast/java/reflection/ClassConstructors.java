@@ -14,9 +14,8 @@ public class ClassConstructors {
         Integer integer1 = (Integer) constructor.newInstance(1);
         Integer integer2 = (Integer) constructor.newInstance(1);
         System.out.println(integer1==integer2);
-
-        Integer i1 = Integer.valueOf(1);
-        Integer i2 = Integer.valueOf(1);
+        Integer i1 = 1;
+        Integer i2 = 1;
         System.out.println(i1==i2);
 
     }
