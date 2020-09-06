@@ -4,6 +4,33 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+/**
+ *
+ * 运行结果：
+ * 获取本类或父类所有可见方法名称
+ * getI is public
+ * setI is public
+ * getS is public
+ * setS is public
+ * wait is public
+ * wait is public
+ * wait is public
+ * equals is public
+ * toString is public
+ * hashCode is public
+ * getClass is public
+ * notify is public
+ * notifyAll is public
+ *
+ * 获取本类的所有方法名称
+ * hello
+ * getI
+ * setI
+ * getS
+ * setS
+ * hello is private method
+ * 1
+ */
 public class ClassMethods {
 
     public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
