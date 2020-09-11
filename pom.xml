@@ -10,6 +10,7 @@
         <module>spring-lifecycle</module>
         <module>spring-aop</module>
         <module>java-reflection</module>
+        <module>java-data-structure</module>
     </modules>
     <name>parent-modules</name>
     <packaging>pom</packaging>
