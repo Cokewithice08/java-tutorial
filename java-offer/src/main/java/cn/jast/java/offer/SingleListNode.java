@@ -1,4 +1,4 @@
-package cn.jast.java.data.structure;
+package cn.jast.java.offer;
 
 public class SingleListNode {
     private int key;

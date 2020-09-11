@@ -11,6 +11,7 @@
         <module>spring-aop</module>
         <module>java-reflection</module>
         <module>java-data-structure</module>
+        <module>java-offer</module>
     </modules>
     <name>parent-modules</name>
     <packaging>pom</packaging>

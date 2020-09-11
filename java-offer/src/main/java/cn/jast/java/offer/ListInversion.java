@@ -1,7 +1,12 @@
-package cn.jast.java.data.structure;
+package cn.jast.java.offer;
 
 import java.util.Stack;
 
+/**
+ * 5.从尾到头打印链表
+ * 题目
+ * 输入一个链表的头节点，从尾到头反过来打印每个节点的值。
+ */
 public class ListInversion {
 
 

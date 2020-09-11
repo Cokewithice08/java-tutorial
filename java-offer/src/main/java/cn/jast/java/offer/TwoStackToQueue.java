@@ -1,4 +1,4 @@
-package cn.jast.java.data.structure;
+package cn.jast.java.offer;
 
 import java.util.Stack;
 
