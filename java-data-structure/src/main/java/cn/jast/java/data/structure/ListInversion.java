@@ -19,11 +19,14 @@ public class ListInversion {
 
     public static void main(String[] args) {
         ListInversion listInversion = new ListInversion();
+
+        //构建单链表
         SingleListNode root = null;
         for (int i = 0; i < 10; i++) {
             root = new SingleListNode(i,root);
         }
-        System.out.println(root);
+        root = new SingleListNode(20,root);
+        System.out.println(String.format("从尾到头打印链表 %s 的结果如下：",root));
         listInversion.print(root);
     }
 }
