@@ -18,6 +18,7 @@ public class TwoStackToQueue<T> {
     private Stack<T> stack2 = new Stack<T>();
 
     public void appendTail(T e){
+        System.out.println("入队："+e);
         stack1.push(e);
     }
 
@@ -29,7 +30,9 @@ public class TwoStackToQueue<T> {
                 }
             }
         }
-        return stack2.pop();
+        T t =stack2.pop();
+        System.out.println("出队："+t);
+        return t;
     }
 
     public int size(){
@@ -43,21 +46,15 @@ public class TwoStackToQueue<T> {
             twoStackToQueue.appendTail(i);
         }
 
-        System.out.println(twoStackToQueue.deleteHead());
-
-        System.out.println("");
-
         twoStackToQueue.appendTail(10);
 
-        System.out.println(twoStackToQueue.deleteHead()+"\r\n");
-
         while (twoStackToQueue.size()>0){
-            System.out.println(twoStackToQueue.deleteHead());
+           twoStackToQueue.deleteHead();
         }
 
         twoStackToQueue.appendTail(11);
 
-        System.out.println("\r\n"+twoStackToQueue.deleteHead());
+        twoStackToQueue.deleteHead();
     }
 
 }
