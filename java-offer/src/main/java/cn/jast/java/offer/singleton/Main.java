@@ -23,12 +23,14 @@ public class Main {
         }
         executorService.shutdown();
         while(true){
-            if(executorService.isShutdown())
+            if(executorService.isShutdown()){
                 if(singletonSet.size()>1){
                     System.out.println("简单单例存在创建多个实例对象，实例如下：");
                     System.out.println(singletonSet);
                 }
-            break;
+                break;
+            }
+
         }
     }
 }
