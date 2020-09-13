@@ -10,7 +10,8 @@ public class Main {
 //        testSimpleLazySingleton();
 //        testSynchronized1Singleton();
 //        testSynchronized2Singleton();
-        testStaticInitializeSingleton();
+//        testStaticInitializeSingleton();
+        testNestedClassSingleton();
     }
 
 
@@ -102,6 +103,28 @@ public class Main {
         for (int i = 0; i < 10; i++) {
             executorService.submit(()->{
                 Synchronized2Singleton singleton = Synchronized2Singleton.getInstance();
+                singletonSet.add(singleton);
+            });
+        }
+        executorService.shutdown();
+        while(true){
+            if(executorService.isShutdown()){
+                if(singletonSet.size()>1){
+                    System.out.println("简单单例存在创建多个实例对象，实例如下：");
+                    System.out.println(singletonSet);
+                }
+                break;
+            }
+
+        }
+    }
+
+    public static void testNestedClassSingleton(){
+        Set<StaticInnerClassSingleton> singletonSet = Collections.synchronizedSet(new HashSet<>());
+        ExecutorService executorService = Executors.newFixedThreadPool(50);
+        for (int i = 0; i < 10; i++) {
+            executorService.submit(()->{
+                StaticInnerClassSingleton singleton = StaticInnerClassSingleton.getInstance();
                 singletonSet.add(singleton);
             });
         }

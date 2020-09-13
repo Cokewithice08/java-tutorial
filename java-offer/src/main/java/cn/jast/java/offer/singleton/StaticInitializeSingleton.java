@@ -1,5 +1,8 @@
 package cn.jast.java.offer.singleton;
 
+/**
+ * 推荐
+ */
 public class StaticInitializeSingleton {
 
     private static StaticInitializeSingleton instance ;
