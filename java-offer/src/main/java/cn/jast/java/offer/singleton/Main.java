@@ -8,8 +8,9 @@ public class Main {
 
     public static void main(String[] args) {
 //        testSimpleLazySingleton();
-        testSynchronizedSingleton1();
-        testSynchronizedSingleton2();
+//        testSynchronized1Singleton();
+//        testSynchronized2Singleton();
+        testStaticInitializeSingleton();
     }
 
 
@@ -41,7 +42,7 @@ public class Main {
     /**
      * 测试线程安全的单例模式实现
      */
-    public static void testSynchronizedSingleton1(){
+    public static void testSynchronized1Singleton(){
         long startTime = System.currentTimeMillis();
         Set<Synchronized1Singleton> singletonSet = Collections.synchronizedSet(new HashSet<>());
         ExecutorService executorService = Executors.newFixedThreadPool(50);
@@ -66,9 +67,9 @@ public class Main {
     }
 
     /**
-     * SynchronizedSingleton2 的效率比 testSynchronizedSingleton1高几倍甚至几十倍以上
+     * Synchronized2Singleton 的效率比 Synchronized1Singleton高几倍甚至几十倍以上
      */
-    public static void testSynchronizedSingleton2(){
+    public static void testSynchronized2Singleton(){
         long startTime = System.currentTimeMillis();
         Set<Synchronized2Singleton> singletonSet = Collections.synchronizedSet(new HashSet<>());
         ExecutorService executorService = Executors.newFixedThreadPool(50);
@@ -82,6 +83,31 @@ public class Main {
         while(true){
             if(executorService.isShutdown()){
                 System.out.println(String.format("执行时间：%s ms",System.currentTimeMillis()-startTime));
+                if(singletonSet.size()>1){
+                    System.out.println("简单单例存在创建多个实例对象，实例如下：");
+                    System.out.println(singletonSet);
+                }
+                break;
+            }
+
+        }
+    }
+
+    /**
+     *
+     */
+    public static void testStaticInitializeSingleton(){
+        Set<Synchronized2Singleton> singletonSet = Collections.synchronizedSet(new HashSet<>());
+        ExecutorService executorService = Executors.newFixedThreadPool(50);
+        for (int i = 0; i < 10; i++) {
+            executorService.submit(()->{
+                Synchronized2Singleton singleton = Synchronized2Singleton.getInstance();
+                singletonSet.add(singleton);
+            });
+        }
+        executorService.shutdown();
+        while(true){
+            if(executorService.isShutdown()){
                 if(singletonSet.size()>1){
                     System.out.println("简单单例存在创建多个实例对象，实例如下：");
                     System.out.println(singletonSet);
