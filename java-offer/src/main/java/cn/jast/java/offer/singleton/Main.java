@@ -43,11 +43,11 @@ public class Main {
      */
     public static void testSynchronizedSingleton1(){
         long startTime = System.currentTimeMillis();
-        Set<SynchronizedSingleton1> singletonSet = Collections.synchronizedSet(new HashSet<>());
+        Set<Synchronized1Singleton> singletonSet = Collections.synchronizedSet(new HashSet<>());
         ExecutorService executorService = Executors.newFixedThreadPool(50);
         for (int i = 0; i < 10; i++) {
             executorService.submit(()->{
-                SynchronizedSingleton1 singleton = SynchronizedSingleton1.getInstance();
+                Synchronized1Singleton singleton = Synchronized1Singleton.getInstance();
                 singletonSet.add(singleton);
             });
         }
@@ -70,11 +70,11 @@ public class Main {
      */
     public static void testSynchronizedSingleton2(){
         long startTime = System.currentTimeMillis();
-        Set<SynchronizedSingleton2> singletonSet = Collections.synchronizedSet(new HashSet<>());
+        Set<Synchronized2Singleton> singletonSet = Collections.synchronizedSet(new HashSet<>());
         ExecutorService executorService = Executors.newFixedThreadPool(50);
         for (int i = 0; i < 10; i++) {
             executorService.submit(()->{
-                SynchronizedSingleton2 singleton = SynchronizedSingleton2.getInstance();
+                Synchronized2Singleton singleton = Synchronized2Singleton.getInstance();
                 singletonSet.add(singleton);
             });
         }
