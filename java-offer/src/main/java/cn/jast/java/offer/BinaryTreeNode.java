@@ -1,6 +1,7 @@
 package cn.jast.java.offer;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -148,14 +149,27 @@ public class BinaryTreeNode {
     }
 
     /**
-     * 层序遍历
+     * 层序遍历（宽度优先遍历）
+     * 特点是先进先出，符合队列的特性
      *
      * @param root
-     * @param list
      * @return
      */
-    public static List<Integer> layerOrderTraverse(BinaryTreeNode root, List<Integer> list) {
-
+    public static List<Integer> layerOrderTraverse(BinaryTreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        LinkedList<BinaryTreeNode> queue = new LinkedList<>();
+        BinaryTreeNode current;
+        queue.addLast(root);
+        while (!queue.isEmpty()){
+            current = queue.removeFirst();
+            list.add(current.getKey());
+            if(current.getLeft() != null){
+                queue.addLast(current.getLeft());
+            }
+            if(current.getRight() != null){
+                queue.addLast(current.getRight());
+            }
+        }
         return list;
     }
 
@@ -167,7 +181,9 @@ public class BinaryTreeNode {
 //        inOrderTraverseByRecursion(root,new ArrayList<>()).forEach(System.out::println);
 //        postOrderTraverseByRecursion(root,new ArrayList<>()).forEach(System.out::println);
 //        preOrderTraverseByNonRecursion(root);
-        inOrderTraverseByNonRecursion(root).forEach(System.out::println);
+//        inOrderTraverseByNonRecursion(root).forEach(System.out::println);
+        layerOrderTraverse(root).forEach(System.out::println);
     }
+
 
 }
