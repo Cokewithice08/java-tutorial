@@ -103,7 +103,21 @@ public class BinaryTreeNode {
      *
      * @param root
      */
-    public static List<Integer> inOrderTraverseByNonRecursion(BinaryTreeNode root, List<Integer> list) {
+    public static List<Integer> inOrderTraverseByNonRecursion(BinaryTreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        Stack<BinaryTreeNode> stack = new Stack<>();
+        BinaryTreeNode current = root;
+        //遍历节点的左子树并将根结点入栈，直到左子树为null时，然后出栈获取节点并遍历该节点的右子树的左子树直到为null
+        while(current != null || !stack.empty()){
+            if(current != null){
+                stack.push(current);
+                current = current.getLeft();
+            }else{
+               BinaryTreeNode top = stack.pop();
+               list.add(top.getKey());
+               current = top.getRight();
+            }
+        }
         return list;
     }
 
@@ -149,10 +163,11 @@ public class BinaryTreeNode {
         BinaryTreeNode root = new BinaryTreeNode(10,
                 new BinaryTreeNode(20, new BinaryTreeNode(19, new BinaryTreeNode(12), new BinaryTreeNode(17)), null),
                 new BinaryTreeNode(9,new BinaryTreeNode(6,null,new BinaryTreeNode(7)),new BinaryTreeNode(8)));
-        BinaryTreeNode.preOrderTraverseByRecursion(root, new ArrayList<>()).forEach(System.out::println);
+//        BinaryTreeNode.preOrderTraverseByRecursion(root, new ArrayList<>()).forEach(System.out::println);
 //        inOrderTraverseByRecursion(root,new ArrayList<>()).forEach(System.out::println);
 //        postOrderTraverseByRecursion(root,new ArrayList<>()).forEach(System.out::println);
-        preOrderTraverseByNonRecursion(root);
+//        preOrderTraverseByNonRecursion(root);
+        inOrderTraverseByNonRecursion(root).forEach(System.out::println);
     }
 
 }
