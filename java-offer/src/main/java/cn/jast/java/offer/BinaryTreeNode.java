@@ -159,9 +159,9 @@ public class BinaryTreeNode {
         List<Integer> list = new ArrayList<>();
         LinkedList<BinaryTreeNode> queue = new LinkedList<>();
         BinaryTreeNode current;
-        queue.addLast(root);
+        queue.offer(root);
         while (!queue.isEmpty()){
-            current = queue.removeFirst();
+            current = queue.poll();
             list.add(current.getKey());
             if(current.getLeft() != null){
                 queue.addLast(current.getLeft());
