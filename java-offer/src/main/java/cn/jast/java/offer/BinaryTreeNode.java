@@ -1,9 +1,6 @@
 package cn.jast.java.offer;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class BinaryTreeNode {
     private int key;
@@ -109,14 +106,14 @@ public class BinaryTreeNode {
         Stack<BinaryTreeNode> stack = new Stack<>();
         BinaryTreeNode current = root;
         //遍历节点的左子树并将根结点入栈，直到左子树为null时，然后出栈获取节点并遍历该节点的右子树的左子树直到为null
-        while(current != null || !stack.empty()){
-            if(current != null){
+        while (current != null || !stack.empty()) {
+            if (current != null) {
                 stack.push(current);
                 current = current.getLeft();
-            }else{
-               BinaryTreeNode top = stack.pop();
-               list.add(top.getKey());
-               current = top.getRight();
+            } else {
+                BinaryTreeNode top = stack.pop();
+                list.add(top.getKey());
+                current = top.getRight();
             }
         }
         return list;
@@ -144,8 +141,21 @@ public class BinaryTreeNode {
      *
      * @param root
      */
-    public static void postOrderTraverseByNonRecursion(BinaryTreeNode root) {
-
+    public static List<Integer> postOrderTraverseByNonRecursion(BinaryTreeNode root) {
+        Stack<BinaryTreeNode> stack = new Stack<>();
+        List<Integer> list = new ArrayList<>();
+        stack.push(root);
+        BinaryTreeNode current;
+        while (stack.isEmpty() == false) {
+            current = stack.pop();
+            if (current != null) {
+                list.add(current.getKey());
+                stack.push(current.getLeft());
+                stack.push(current.getRight());
+            }
+        }
+        Collections.reverse(list);
+        return list;
     }
 
     /**
@@ -160,13 +170,13 @@ public class BinaryTreeNode {
         LinkedList<BinaryTreeNode> queue = new LinkedList<>();
         BinaryTreeNode current;
         queue.offer(root);
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             current = queue.poll();
             list.add(current.getKey());
-            if(current.getLeft() != null){
+            if (current.getLeft() != null) {
                 queue.addLast(current.getLeft());
             }
-            if(current.getRight() != null){
+            if (current.getRight() != null) {
                 queue.addLast(current.getRight());
             }
         }
@@ -176,14 +186,13 @@ public class BinaryTreeNode {
     public static void main(String[] args) {
         BinaryTreeNode root = new BinaryTreeNode(10,
                 new BinaryTreeNode(20, new BinaryTreeNode(19, new BinaryTreeNode(12), new BinaryTreeNode(17)), null),
-                new BinaryTreeNode(9,new BinaryTreeNode(6,null,new BinaryTreeNode(7)),new BinaryTreeNode(8)));
+                new BinaryTreeNode(9, new BinaryTreeNode(6, null, new BinaryTreeNode(7)), new BinaryTreeNode(8)));
 //        BinaryTreeNode.preOrderTraverseByRecursion(root, new ArrayList<>()).forEach(System.out::println);
 //        inOrderTraverseByRecursion(root,new ArrayList<>()).forEach(System.out::println);
 //        postOrderTraverseByRecursion(root,new ArrayList<>()).forEach(System.out::println);
 //        preOrderTraverseByNonRecursion(root);
 //        inOrderTraverseByNonRecursion(root).forEach(System.out::println);
-        layerOrderTraverse(root).forEach(System.out::println);
+//        layerOrderTraverse(root).forEach(System.out::println);
+        postOrderTraverseByNonRecursion(root).forEach(System.out::println);
     }
-
-
 }
