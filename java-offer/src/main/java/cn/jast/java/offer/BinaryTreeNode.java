@@ -183,16 +183,121 @@ public class BinaryTreeNode {
         return list;
     }
 
+    /**
+     * 根据先序序列和中序序列构造二叉树（递归实现）
+     * <p>
+     * 先序序列第一个元素是树的根结点，从中序序列中找出与根结点所在位置k:
+     * 1.确定根结点的左子树和右子树的中序序列：该位置之前的元素就是根结点左子树的中序序列，该位置之后的元素就是根结点的右子树的中序序列
+     * 2.确定根结点的左子树和右子树的先序序列：先序序列第一个元素往后k元素就是根结点左子树的先序序列，k+1位置之后就是根结点右子树的先序序列
+     * <p>
+     * <p>
+     * perOrder[i]~perOrder[j] 是子树的先序序列
+     * inOrder[s]~inOrder[t] 是子树的中序序列
+     *
+     * @param perOrder
+     * @param inOrder
+     * @param i
+     * @param j
+     * @param s
+     * @param t
+     * @return
+     */
+    public static BinaryTreeNode buildTreeByPerOrderAndInOrder(Integer[] perOrder, Integer[] inOrder, int i, int j, int s, int t) {
+        if (i > j) {
+            return null;
+        }
+        BinaryTreeNode root = new BinaryTreeNode(perOrder[i]);
+        int k;
+        k = s;
+        while (k <= t && inOrder[k] != perOrder[i]) {
+            k++;
+        }
+        if (k > t) {
+            return null;
+        }
+        root.setLeft(buildTreeByPerOrderAndInOrder(perOrder, inOrder, i + 1, j + k - s, s, k - 1));
+        root.setRight(buildTreeByPerOrderAndInOrder(perOrder, inOrder, i + k - s + 1, j, k + 1, t));
+        return root;
+    }
+
+    /**
+     * 根据后序序列和中序序列构造二叉树（递归实现）
+     *
+     * postOrder[i]~postOrder[j]是子树的后序序列
+     * inOrder[s]~inOrder[t]是子树的中序序列
+     *
+     * @param postOrder
+     * @param inOrder
+     * @param i
+     * @param j
+     * @param s
+     * @param t
+     * @return
+     */
+    public static BinaryTreeNode buildTreeByPostOrderAndInOrder(Integer[] postOrder, Integer[] inOrder, int i, int j, int s, int t) {
+        if (i > j) {
+            return null;
+        }
+        BinaryTreeNode root = new BinaryTreeNode(postOrder[j]);
+        int k;
+        k = s;
+        while (k <= t && inOrder[k] != postOrder[j]) {
+            k++;
+        }
+        if (k > t) {
+            return null;
+        }
+        //左子树个数
+        int countLeft = k - s;
+        //右子树个数
+        int countRight = t - k;
+
+        if (countLeft == 0) {
+            //左子树为null
+            root.setRight(buildTreeByPostOrderAndInOrder(postOrder, inOrder, j - countRight, j - 1, t - countRight + 1, t));
+        } else if (countRight == 0) {
+            //右子树为null
+            root.setLeft(buildTreeByPostOrderAndInOrder(postOrder, inOrder, j - countLeft, j - 1, t - countLeft, t - countRight - 1));
+        } else {
+            //左、右子树不为null
+            root.setLeft(buildTreeByPostOrderAndInOrder(postOrder, inOrder, i, i + countLeft - 1, s, s + countLeft - 1));
+            root.setRight(buildTreeByPostOrderAndInOrder(postOrder, inOrder, j - 1 - countRight + 1, j - 1, t - countRight + 1, t));
+        }
+
+
+        return root;
+    }
+
+    public int size(){
+        return preOrderTraverseByNonRecursion(this).size();
+    }
+
+    @Override
+    public String toString() {
+        return "BinaryTreeNode{" +
+                "key=" + key +
+                ", left=" + left +
+                ", right=" + right +
+                '}';
+    }
+
     public static void main(String[] args) {
         BinaryTreeNode root = new BinaryTreeNode(10,
-                new BinaryTreeNode(20, new BinaryTreeNode(19, new BinaryTreeNode(12), new BinaryTreeNode(17)), null),
-                new BinaryTreeNode(9, new BinaryTreeNode(6, null, new BinaryTreeNode(7)), new BinaryTreeNode(8)));
+                new BinaryTreeNode(20, new BinaryTreeNode(19, new BinaryTreeNode(12), new BinaryTreeNode(17)), new BinaryTreeNode(18)),
+                new BinaryTreeNode(9, new BinaryTreeNode(6, new BinaryTreeNode(0), new BinaryTreeNode(7, new BinaryTreeNode(1), null)), new BinaryTreeNode(8)));
+        int n = root.size();
 //        BinaryTreeNode.preOrderTraverseByRecursion(root, new ArrayList<>()).forEach(System.out::println);
 //        inOrderTraverseByRecursion(root,new ArrayList<>()).forEach(System.out::println);
 //        postOrderTraverseByRecursion(root,new ArrayList<>()).forEach(System.out::println);
 //        preOrderTraverseByNonRecursion(root);
 //        inOrderTraverseByNonRecursion(root).forEach(System.out::println);
 //        layerOrderTraverse(root).forEach(System.out::println);
-        postOrderTraverseByNonRecursion(root).forEach(System.out::println);
+        System.out.println((Arrays.toString(inOrderTraverseByNonRecursion(root).toArray(new Integer[0]))));
+        System.out.println((Arrays.toString(postOrderTraverseByNonRecursion(root).toArray(new Integer[0]))));
+        BinaryTreeNode newRoot = buildTreeByPostOrderAndInOrder(postOrderTraverseByNonRecursion(root).toArray(new Integer[0]),
+                inOrderTraverseByNonRecursion(root).toArray(new Integer[0]), 0, n - 1, 0, n - 1);
+        System.out.println(root);
+        System.out.println(newRoot);
+
     }
 }
