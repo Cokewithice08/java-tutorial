@@ -62,7 +62,7 @@ public class BinaryTreeNode {
      *
      * @param root
      */
-    public static List<Integer> preOrderTraverseByNonRecursion(BinaryTreeNode root) {
+    public static List<Integer> preOrderTraverseWithoutRecursion(BinaryTreeNode root) {
         List<Integer> list = new ArrayList<>();// 用于存放遍历后的结果
         Stack<BinaryTreeNode> stack = new Stack();// 用于存放右子树节点
         BinaryTreeNode p = root;
@@ -101,7 +101,7 @@ public class BinaryTreeNode {
      *
      * @param root
      */
-    public static List<Integer> inOrderTraverseByNonRecursion(BinaryTreeNode root) {
+    public static List<Integer> inOrderTraverseWithoutRecursion(BinaryTreeNode root) {
         List<Integer> list = new ArrayList<>();
         Stack<BinaryTreeNode> stack = new Stack<>();
         BinaryTreeNode current = root;
@@ -141,7 +141,7 @@ public class BinaryTreeNode {
      *
      * @param root
      */
-    public static List<Integer> postOrderTraverseByNonRecursion(BinaryTreeNode root) {
+    public static List<Integer> postOrderTraverseWithoutRecursion(BinaryTreeNode root) {
         Stack<BinaryTreeNode> stack = new Stack<>();
         List<Integer> list = new ArrayList<>();
         stack.push(root);
@@ -269,7 +269,7 @@ public class BinaryTreeNode {
     }
 
     public int size(){
-        return preOrderTraverseByNonRecursion(this).size();
+        return preOrderTraverseWithoutRecursion(this).size();
     }
 
     @Override
@@ -286,18 +286,19 @@ public class BinaryTreeNode {
                 new BinaryTreeNode(20, new BinaryTreeNode(19, new BinaryTreeNode(12), new BinaryTreeNode(17)), new BinaryTreeNode(18)),
                 new BinaryTreeNode(9, new BinaryTreeNode(6, new BinaryTreeNode(0), new BinaryTreeNode(7, new BinaryTreeNode(1), null)), new BinaryTreeNode(8)));
         int n = root.size();
-//        BinaryTreeNode.preOrderTraverseByRecursion(root, new ArrayList<>()).forEach(System.out::println);
-//        inOrderTraverseByRecursion(root,new ArrayList<>()).forEach(System.out::println);
-//        postOrderTraverseByRecursion(root,new ArrayList<>()).forEach(System.out::println);
-//        preOrderTraverseByNonRecursion(root);
-//        inOrderTraverseByNonRecursion(root).forEach(System.out::println);
-//        layerOrderTraverse(root).forEach(System.out::println);
-        System.out.println((Arrays.toString(inOrderTraverseByNonRecursion(root).toArray(new Integer[0]))));
-        System.out.println((Arrays.toString(postOrderTraverseByNonRecursion(root).toArray(new Integer[0]))));
-        BinaryTreeNode newRoot = buildTreeByPostOrderAndInOrder(postOrderTraverseByNonRecursion(root).toArray(new Integer[0]),
-                inOrderTraverseByNonRecursion(root).toArray(new Integer[0]), 0, n - 1, 0, n - 1);
+        System.out.println((Arrays.toString(inOrderTraverseWithoutRecursion(root).toArray(new Integer[0]))));
+        System.out.println((Arrays.toString(postOrderTraverseWithoutRecursion(root).toArray(new Integer[0]))));
+        BinaryTreeNode newRoot = buildTreeByPostOrderAndInOrder(postOrderTraverseWithoutRecursion(root).toArray(new Integer[0]),
+                inOrderTraverseWithoutRecursion(root).toArray(new Integer[0]), 0, n - 1, 0, n - 1);
         System.out.println(root);
         System.out.println(newRoot);
 
     }
+    /**
+     * 输出：
+     * [12, 19, 17, 20, 18, 10, 0, 6, 1, 7, 9, 8]
+     * [12, 17, 19, 18, 20, 0, 1, 7, 6, 8, 9, 10]
+     * BinaryTreeNode{key=10, left=BinaryTreeNode{key=20, left=BinaryTreeNode{key=19, left=BinaryTreeNode{key=12, left=null, right=null}, right=BinaryTreeNode{key=17, left=null, right=null}}, right=BinaryTreeNode{key=18, left=null, right=null}}, right=BinaryTreeNode{key=9, left=BinaryTreeNode{key=6, left=BinaryTreeNode{key=0, left=null, right=null}, right=BinaryTreeNode{key=7, left=BinaryTreeNode{key=1, left=null, right=null}, right=null}}, right=BinaryTreeNode{key=8, left=null, right=null}}}
+     * BinaryTreeNode{key=10, left=BinaryTreeNode{key=20, left=BinaryTreeNode{key=19, left=BinaryTreeNode{key=12, left=null, right=null}, right=BinaryTreeNode{key=17, left=null, right=null}}, right=BinaryTreeNode{key=18, left=null, right=null}}, right=BinaryTreeNode{key=9, left=BinaryTreeNode{key=6, left=BinaryTreeNode{key=0, left=null, right=null}, right=BinaryTreeNode{key=7, left=BinaryTreeNode{key=1, left=null, right=null}, right=null}}, right=BinaryTreeNode{key=8, left=null, right=null}}}
+     */
 }
