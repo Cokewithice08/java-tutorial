@@ -49,8 +49,7 @@ public class ArrayStack<T> implements Stack<T> {
     }
 
     @Override
-    public boolean isEmpty() {
-
+    public boolean isEmpty(){
         return top == -1;
     }
 
