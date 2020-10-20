@@ -17,7 +17,7 @@ public class ListInversion {
             stack.push(next);
             next = next.getNext();
         }
-        while (stack.size()>0){
+        while (!stack.isEmpty()){
             System.out.println(stack.pop().getKey());
         }
     }

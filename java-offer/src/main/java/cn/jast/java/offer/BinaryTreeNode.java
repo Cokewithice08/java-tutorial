@@ -67,7 +67,7 @@ public class BinaryTreeNode {
         Stack<BinaryTreeNode> stack = new Stack();// 用于存放右子树节点
         BinaryTreeNode p = root;
         //左子树和右子树都未遍历时，遍历
-        while (p != null || stack.size() > 0) {
+        while (p != null || !stack.isEmpty()) {
             if (p != null) { //左子树不为空时，遍历左子树
                 list.add(p.getKey());//当前节点输出
                 stack.push(p.getRight());//右子树入栈，待左子树遍历完后遍历右子树
@@ -215,7 +215,12 @@ public class BinaryTreeNode {
         if (k > t) {
             return null;
         }
-        root.setLeft(buildTreeByPerOrderAndInOrder(perOrder, inOrder, i + 1, j + k - s, s, k - 1));
+
+        int leftSize = k- s;
+        int rightSize = t - k;
+        if(leftSize>0){
+            root.setLeft(buildTreeByPerOrderAndInOrder(perOrder, inOrder, i + 1, j+leftSize, s, s+leftSize-1));
+        }
         root.setRight(buildTreeByPerOrderAndInOrder(perOrder, inOrder, i + k - s + 1, j, k + 1, t));
         return root;
     }
@@ -244,9 +249,9 @@ public class BinaryTreeNode {
         while (k <= t && inOrder[k] != postOrder[j]) {
             k++;
         }
-        if (k > t) {
-            return null;
-        }
+//        if (k > t) {
+//            return null;
+//        }
         //左子树个数
         int countLeft = k - s;
         //右子树个数
@@ -268,8 +273,69 @@ public class BinaryTreeNode {
         return root;
     }
 
+    public BinaryTreeNode build(int[] preorder,int[] inorder,int ps,int pe,int is, int ie){
+        if(ps > pe){
+            return null;
+        }
+        BinaryTreeNode node = new BinaryTreeNode(preorder[ps]);
+        int k = is;
+        while(k <= ie && inorder[k] != preorder[ps]) k++;
+        int leftSize = k- is;
+        int rightSize = ie - k;
+        if(leftSize>0){
+            node.left = build(preorder,inorder,ps+1,ps+leftSize,is,is+leftSize-1);
+        }else if(rightSize>0){
+            node.right = build(preorder,inorder,ps+1+leftSize,pe,k+1,ie);
+        }else{
+
+        }
+        return node;
+    }
+
     public int size(){
         return preOrderTraverseWithoutRecursion(this).size();
+    }
+
+    public static List<List<Integer>> levelOrder(BinaryTreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        Queue<BinaryTreeNode> roots = new LinkedList<>();
+        roots.offer(root);
+
+        Queue<BinaryTreeNode> subs = new LinkedList<>();
+        List<Integer> lay = new ArrayList<>();
+        Queue<BinaryTreeNode> temp = new LinkedList<>();
+        while(!roots.isEmpty() || !subs.isEmpty() || !temp.isEmpty()){
+            if(!roots.isEmpty()){
+                while(!roots.isEmpty()){
+                    BinaryTreeNode currtent = roots.poll();
+                    if(currtent != null){
+                        lay.add(currtent.getKey());
+                        if(currtent.left != null){
+                            temp.offer(currtent.left);
+                        }
+                        if(currtent.right != null){
+                            temp.offer(currtent.right);
+                        }
+                    }
+                }
+            }
+            if(!subs.isEmpty()){
+                result.add(lay);
+                lay = new ArrayList<>();
+                while(!subs.isEmpty()){
+                    roots.offer(subs.poll());
+                }
+            }
+            if(!temp.isEmpty()){
+                while(!temp.isEmpty()){
+                    subs.offer(temp.poll());
+                }
+            }
+        }
+        if(lay != null && lay.size() > 0){
+            result.add(lay);
+        }
+        return result;
     }
 
     @Override
@@ -286,12 +352,13 @@ public class BinaryTreeNode {
                 new BinaryTreeNode(20, new BinaryTreeNode(19, new BinaryTreeNode(12), new BinaryTreeNode(17)), new BinaryTreeNode(18)),
                 new BinaryTreeNode(9, new BinaryTreeNode(6, new BinaryTreeNode(0), new BinaryTreeNode(7, new BinaryTreeNode(1), null)), new BinaryTreeNode(8)));
         int n = root.size();
-        System.out.println((Arrays.toString(inOrderTraverseWithoutRecursion(root).toArray(new Integer[0]))));
-        System.out.println((Arrays.toString(postOrderTraverseWithoutRecursion(root).toArray(new Integer[0]))));
-        BinaryTreeNode newRoot = buildTreeByPostOrderAndInOrder(postOrderTraverseWithoutRecursion(root).toArray(new Integer[0]),
-                inOrderTraverseWithoutRecursion(root).toArray(new Integer[0]), 0, n - 1, 0, n - 1);
-        System.out.println(root);
-        System.out.println(newRoot);
+//        System.out.println((Arrays.toString(inOrderTraverseWithoutRecursion(root).toArray(new Integer[0]))));
+//        System.out.println((Arrays.toString(postOrderTraverseWithoutRecursion(root).toArray(new Integer[0]))));
+//        BinaryTreeNode newRoot = buildTreeByPostOrderAndInOrder(postOrderTraverseWithoutRecursion(root).toArray(new Integer[0]),
+//                inOrderTraverseWithoutRecursion(root).toArray(new Integer[0]), 0, n - 1, 0, n - 1);
+//        System.out.println(root);
+//        System.out.println(newRoot);
+        System.out.println(levelOrder(root));
 
     }
     /**
