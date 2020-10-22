@@ -59,7 +59,7 @@ public class SinglyLinkedList<T> implements List<T> {
     }
 
     @Override
-    public int getPos(T t) {
+    public int getFirstPos(T t) {
         Node current = head;
         int i = 1;
         while(current != null && current.value != t){
@@ -182,7 +182,7 @@ public class SinglyLinkedList<T> implements List<T> {
         s1.append(4);
         System.out.println(s1);
         System.out.println(s1.getValue(2));
-        System.out.println(s1.getPos(2));
+        System.out.println(s1.getFirstPos(2));
         System.out.println(s1.isEmpty());
         System.out.println(s1.delete(5));
         System.out.println(s1);

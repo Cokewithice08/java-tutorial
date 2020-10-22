@@ -60,6 +60,6 @@ public interface List<T> {
      * @param t
      * @return
      */
-    int getPos(T t);
+    int getFirstPos(T t);
 
 }
