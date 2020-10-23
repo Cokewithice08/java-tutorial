@@ -12,6 +12,7 @@
         <module>java-reflection</module>
         <module>java-data-structure</module>
         <module>java-offer</module>
+        <module>spring-circular-dependencies</module>
     </modules>
     <name>parent-modules</name>
     <packaging>pom</packaging>
