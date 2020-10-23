@@ -10,5 +10,6 @@ public class Application {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
         FullBean fullBean = context.getBean("fullBean",FullBean.class);
         fullBean.hello();
+        context.destroy();
     }
 }

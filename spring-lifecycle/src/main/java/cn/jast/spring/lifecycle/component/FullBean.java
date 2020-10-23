@@ -2,6 +2,10 @@ package cn.jast.spring.lifecycle.component;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;
+import org.springframework.context.*;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.util.StringValueResolver;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -22,7 +26,9 @@ import javax.annotation.PreDestroy;
  * FullBean DisposableBean.destroy
  * FullBean custom destory
  */
-public class FullBean implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware, InitializingBean, DisposableBean {
+public class FullBean implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware, EnvironmentAware,
+        EmbeddedValueResolverAware, ResourceLoaderAware, ApplicationEventPublisherAware, MessageSourceAware,
+        ApplicationContextAware,InitializingBean, DisposableBean {
     private String hello;
 
     public FullBean() {
@@ -78,5 +84,35 @@ public class FullBean implements BeanNameAware, BeanClassLoaderAware, BeanFactor
     @PreDestroy
     public void preDestroy(){
         System.out.println("FullBean @PreDestroy 标注的方法");
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        System.out.println("ApplicationContextAware.setApplicationContext");
+    }
+
+    @Override
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        System.out.println("ApplicationEventPublisherAware.setApplicationEventPublisher");
+    }
+
+    @Override
+    public void setEmbeddedValueResolver(StringValueResolver resolver) {
+        System.out.println("EmbeddedValueResolverAware.setEmbeddedValueResolver");
+    }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        System.out.println("EnvironmentAware.setEnvironment");
+    }
+
+    @Override
+    public void setMessageSource(MessageSource messageSource) {
+        System.out.println("MessageSourceAware.setMessageSource");
+    }
+
+    @Override
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+        System.out.println("ResourceLoaderAware.setResourceLoader");
     }
 }
