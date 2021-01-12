@@ -4,4 +4,5 @@
 - [剑指offer Java实现](./java-offer)
 - [Spring AOP](./spring-aop)
 - [Spring 生命周期](./spring-lifecycle)
+- [一致性散列算法Java实现](./java-consistent-hash)
 
