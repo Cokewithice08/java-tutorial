@@ -14,6 +14,7 @@
         <module>java-thread</module>
         <module>java-jvm</module>
         <module>java-consistent-hash</module>
+        <module>java-aqs</module>
     </modules>
     <name>java-tutorial</name>
     <packaging>pom</packaging>
