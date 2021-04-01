@@ -1,2 +1,2 @@
 ## 参考
-- [Chapter 6. Aspect Oriented Programming with Spring](https://docs.spring.io/spring-framework/docs/2.5.x/reference/aop.html) 真的好
+- [比较Spring AOP和AspectJ ](https://github.com/jast90/java-tutorial/issues/3)
