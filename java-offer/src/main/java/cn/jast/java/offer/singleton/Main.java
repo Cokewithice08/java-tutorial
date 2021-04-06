@@ -8,10 +8,10 @@ public class Main {
 
     public static void main(String[] args) {
 //        testSimpleLazySingleton();
-//        testSynchronized1Singleton();
+        testSynchronized1Singleton();
 //        testSynchronized2Singleton();
 //        testStaticInitializeSingleton();
-        testNestedClassSingleton();
+//        testNestedClassSingleton();
     }
 
 
