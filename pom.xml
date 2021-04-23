@@ -17,6 +17,7 @@
         <module>java-aqs</module>
         <module>mysql-transaction</module>
         <module>java-spi</module>
+        <module>java-api</module>
     </modules>
     <name>java-tutorial</name>
     <packaging>pom</packaging>
