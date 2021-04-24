@@ -109,7 +109,7 @@ public class ListAnalyzer {
     }
 
     /**
-     * ArrayList 和 LinkedList 遍历 for : 性能对比
+     * ArrayList 和 LinkedList 遍历 iterator 性能对比
      * 输出：
      * ArrayList iterator cost time :1 ms
      * LinkedList iterator cost time :1 ms

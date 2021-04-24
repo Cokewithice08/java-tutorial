@@ -10,6 +10,10 @@ import java.util.Stack;
 public class ListInversion {
 
 
+    /**
+     * 空间复杂度 O(n)
+     * @param singleListNode
+     */
     public void print(SingleListNode singleListNode){
         Stack<SingleListNode> stack = new Stack<>();
         SingleListNode next = singleListNode;
@@ -19,6 +23,30 @@ public class ListInversion {
         }
         while (!stack.isEmpty()){
             System.out.println(stack.pop().getKey());
+        }
+    }
+
+    /**
+     * 空间复杂度O(1)
+     */
+    public void printO1(SingleListNode singleListNode){
+        SingleListNode current = singleListNode;
+        SingleListNode next,newHead = null;
+        while(current != null){
+            next = current.getNext();
+            if(newHead == null ){
+                current.setNext(null);
+            }else{
+                current.setNext(newHead);
+            }
+            newHead = current;
+            current = next;
+        }
+        System.out.println(newHead);
+        current = newHead;
+        while(current != null){
+            System.out.println(current.getKey());
+            current = current.getNext();
         }
     }
 
