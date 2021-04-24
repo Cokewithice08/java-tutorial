@@ -15,4 +15,6 @@
 
 
 ### 链表
-[从尾到头打印链表](src/main/java/cn/jast/java/offer/ListInversion.java)
+#### [从尾到头打印链表的](src/main/java/cn/jast/java/offer/ListInversion.java)
+- 通过栈实现，空间复杂度O(n) 
+- 通过链表反转，空间复杂度O(1)
