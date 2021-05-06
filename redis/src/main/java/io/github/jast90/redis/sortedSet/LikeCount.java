@@ -17,12 +17,12 @@ public class LikeCount {
         for (int i = 0; i < 10; i++) {
             userLikeAnswer(answerLikeCount,i,questionId);
         }
-        if(jedis.zadd(answerLikeCount, 1, "1") == 0){
-            System.out.println(String.format("用户：%s 已经点赞了回答：%s,不能继续点赞",1,questionId));
+        if(isUserLikeAnswer(answerLikeCount,1)){
+            System.out.println(String.format("用户：%s 已经点赞了回答：%s",1,questionId));
         }
         System.out.println(String.format("回答：%s 的点赞数：%s",questionId, jedis.zcard(answerLikeCount)));
         if (!isUserLikeAnswer(answerLikeCount,99999)) {
-            System.out.println(String.format("用户：%s 未点赞回答",99999));
+            System.out.println(String.format("用户：%s 未点赞回答：%s",99999,questionId));
         }
     }
 
@@ -48,7 +48,7 @@ public class LikeCount {
  * 用户：7 赞了回答：1
  * 用户：8 赞了回答：1
  * 用户：9 赞了回答：1
- * 用户：1 已经点赞了回答：1,不能继续点赞
+ * 用户：1 已经点赞了回答：1
  * 回答：1 的点赞数：10
- * 用户：99999 未点赞回答
+ * 用户：99999 未点赞回答：1
  */
