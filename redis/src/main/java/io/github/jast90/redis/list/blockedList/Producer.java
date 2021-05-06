@@ -1,4 +1,4 @@
-package io.github.jast90.redis.lists.blockedList;
+package io.github.jast90.redis.list.blockedList;
 
 import redis.clients.jedis.Jedis;
 
