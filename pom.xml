@@ -18,6 +18,7 @@
         <module>mysql-transaction</module>
         <module>java-spi</module>
         <module>java-api</module>
+        <module>redis</module>
     </modules>
     <name>java-tutorial</name>
     <packaging>pom</packaging>
