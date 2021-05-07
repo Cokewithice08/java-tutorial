@@ -1,4 +1,4 @@
-package io.github.jast90.redis.sortedSet;
+package io.github.jast90.redis.set;
 
 import redis.clients.jedis.Jedis;
 
@@ -20,20 +20,19 @@ public class LikeCount {
         if(isUserLikeAnswer(answerLikeCount,1)){
             System.out.println(String.format("用户：%s 已经点赞了回答：%s",1,questionId));
         }
-        System.out.println(String.format("回答：%s 的点赞数：%s",questionId, jedis.zcard(answerLikeCount)));
+        System.out.println(String.format("回答：%s 的点赞数：%s",questionId, jedis.scard(answerLikeCount)));
         if (!isUserLikeAnswer(answerLikeCount,99999)) {
             System.out.println(String.format("用户：%s 未点赞回答：%s",99999,questionId));
         }
     }
 
     private static void userLikeAnswer(String questionLikeCount,int uid, int questionId){
-        jedis.zadd(questionLikeCount,1,String.valueOf(uid));
+        jedis.sadd(questionLikeCount,String.valueOf(uid));
         System.out.println(String.format("用户：%s 赞了回答：%s",uid,questionId));
     }
 
     private static boolean isUserLikeAnswer(String questionLikeCount,int uid){
-        Long rank = jedis.zrank(questionLikeCount, String.valueOf(uid));
-        return rank != null;
+        return jedis.sismember(questionLikeCount, String.valueOf(uid));
     }
 }
 
