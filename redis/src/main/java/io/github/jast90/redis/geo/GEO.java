@@ -23,7 +23,7 @@ public class GEO {
 //        add();
 //        pos();
 //        dist();
-//        radiusByMember();
+        radiusByMember();
     }
 
     public static void add(){
