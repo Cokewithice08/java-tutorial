@@ -9,6 +9,8 @@ import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
 import org.apache.rocketmq.remoting.exception.RemotingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.CountDownLatch;
@@ -19,9 +21,11 @@ import java.util.concurrent.TimeUnit;
  */
 public class Producer {
 
+    private final static Logger logger = LoggerFactory.getLogger(Producer.class);
+
     public static void main(String[] args) throws Exception {
-        syncProducer();
-//        asyncProducer();
+//        syncProducer();
+        asyncProducer();
 //        onewayProducer();
     }
 
@@ -30,13 +34,13 @@ public class Producer {
         producer.setNamesrvAddr(Constants.rocketmqHost);
         producer.setSendMsgTimeout(400000);
         producer.start();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             Message msg = new Message();
             msg.setTopic("TopicTest");
             msg.setTags("TagA");
             msg.setBody(("Hello RocketMQ "+i).getBytes(RemotingHelper.DEFAULT_CHARSET));
             SendResult sendResult = producer.send(msg);
-            System.out.printf("%s%n",sendResult);
+            logger.info("{}",sendResult);
         }
         producer.shutdown();
     }
@@ -58,13 +62,13 @@ public class Producer {
                 @Override
                 public void onSuccess(SendResult sendResult) {
                     countDownLatch.countDown();
-                    System.out.printf("%-10d OK %s %n",index,sendResult.getMsgId());
+                    logger.info("{} OK {}",index,sendResult.getMsgId());
                 }
 
                 @Override
                 public void onException(Throwable e) {
                     countDownLatch.countDown();
-                    System.out.printf("%-10d Exception %s %n", index, e);
+                    logger.info("{} Exception {}", index, e);
                     e.printStackTrace();
                 }
             });
