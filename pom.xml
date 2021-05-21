@@ -20,6 +20,7 @@
         <module>java-api</module>
         <module>redis</module>
         <module>log4j2</module>
+        <module>mq</module>
     </modules>
     <name>java-tutorial</name>
     <packaging>pom</packaging>
