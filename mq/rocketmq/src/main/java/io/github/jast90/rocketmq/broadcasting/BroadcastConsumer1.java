@@ -16,9 +16,9 @@ import java.util.List;
 /**
  * Created by jast90 on 2021/5/22
  */
-public class BroadcastConsumer {
+public class BroadcastConsumer1 {
 
-    private final static Logger logger = LoggerFactory.getLogger(BroadcastConsumer.class);
+    private final static Logger logger = LoggerFactory.getLogger(BroadcastConsumer1.class);
 
     public static void main(String[] args) throws Exception {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("broadcast-consumer");
@@ -36,5 +36,6 @@ public class BroadcastConsumer {
             }
         });
         consumer.start();
+        logger.info("Broadcast Consumer Started.");
     }
 }

@@ -15,11 +15,10 @@ import java.util.List;
 /**
  * Created by jast90 on 2021/5/19
  */
-public class Consumer {
-    private final static Logger logger = LoggerFactory.getLogger(Consumer.class);
+public class Consumer1 {
+    private final static Logger logger = LoggerFactory.getLogger(Consumer1.class);
 
     public static void main(String[] args) throws MQClientException {
-        //同一个组 中默认是使用 集群 消息模式 消费消息的：生产者生产10条消息，两个消费者各自消费5条
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("my-consumer");
         consumer.setNamesrvAddr(Constants.rocketmqHost);
         consumer.subscribe("TopicTest","*");

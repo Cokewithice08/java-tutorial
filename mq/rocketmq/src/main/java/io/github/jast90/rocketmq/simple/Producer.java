@@ -24,8 +24,8 @@ public class Producer {
     private final static Logger logger = LoggerFactory.getLogger(Producer.class);
 
     public static void main(String[] args) throws Exception {
-//        syncProducer();
-        asyncProducer();
+        syncProducer();
+//        asyncProducer();
 //        onewayProducer();
     }
 
