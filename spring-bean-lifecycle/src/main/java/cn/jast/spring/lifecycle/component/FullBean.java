@@ -2,6 +2,7 @@ package cn.jast.spring.lifecycle.component;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.*;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
@@ -13,6 +14,10 @@ import javax.annotation.PreDestroy;
 /**
  * FullBean的初始化及销毁：
  * FullBean constructor
+ * setHello
+ * CustomerBeanPostProcessor.postProcessBeforeInitialization,beanName=aBean
+ * CustomerBeanPostProcessor.postProcessAfterInitialization,beanName=aBean
+ * set aBean
  * FullBean BeanNameAware.setBeanName
  * FullBean BeanClassLoaderAware.setBeanClassLoader
  * FullBean BeanFactoryAware.setBeanFactory
@@ -31,6 +36,8 @@ public class FullBean implements BeanNameAware, BeanClassLoaderAware, BeanFactor
         ApplicationContextAware,InitializingBean, DisposableBean {
     private String hello;
 
+    private ABean aBean;
+
     public FullBean() {
         System.out.println("\n\n");
         System.out.println("FullBean constructor");
@@ -43,6 +50,15 @@ public class FullBean implements BeanNameAware, BeanClassLoaderAware, BeanFactor
     public void setHello(String hello) {
         System.out.println("setHello");
         this.hello = hello;
+    }
+
+    public ABean getaBean() {
+        return aBean;
+    }
+
+    public void setaBean(ABean aBean) {
+        System.out.println("set aBean");
+        this.aBean = aBean;
     }
 
     public void setBeanClassLoader(ClassLoader classLoader) {
