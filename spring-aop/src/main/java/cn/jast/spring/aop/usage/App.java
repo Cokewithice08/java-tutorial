@@ -1,9 +1,8 @@
-package cn.jast.spring.aop;
+package cn.jast.spring.aop.usage;
 
-import cn.jast.spring.aop.component.MyAnnotationComponent;
-import cn.jast.spring.aop.config.AppConfig;
-import cn.jast.spring.aop.service.HelloService;
-import cn.jast.spring.aop.service.sub.Hello1Service;
+import cn.jast.spring.aop.usage.config.AppConfig;
+import cn.jast.spring.aop.usage.service.HelloService;
+import cn.jast.spring.aop.usage.service.sub.Hello1Service;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class App {

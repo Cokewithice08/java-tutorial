@@ -1,4 +1,4 @@
-package cn.jast.spring.aop.annotation;
+package cn.jast.spring.aop.usage.annotation;
 
 import java.lang.annotation.*;
 

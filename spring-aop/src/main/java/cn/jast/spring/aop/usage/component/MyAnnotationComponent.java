@@ -1,6 +1,6 @@
-package cn.jast.spring.aop.component;
+package cn.jast.spring.aop.usage.component;
 
-import cn.jast.spring.aop.annotation.MyAnnotation;
+import cn.jast.spring.aop.usage.annotation.MyAnnotation;
 import org.springframework.stereotype.Component;
 
 /**

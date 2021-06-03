@@ -1,4 +1,4 @@
-package cn.jast.spring.aop.aspectj;
+package cn.jast.spring.aop.usage.aspectj;
 
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -12,27 +12,27 @@ public class LogAspect {
     /**
      * cn.jast.spring.aop.service下所有类的所有方法
      */
-    @Pointcut("execution(* cn.jast.spring.aop.service.*.*(..))")
+    @Pointcut("execution(* cn.jast.spring.aop.usage.service.*.*(..))")
     public void servicePointcut(){}
 
     /**
-     * 包下中类的所有方法 within(cn.jast.spring.aop.service.*)
-     * 包下及子包中类的所有方法 within(cn.jast.spring.aop.service..*)
+     * 包下中类的所有方法 within(cn.jast.spring.aop.usage.service.*)
+     * 包下及子包中类的所有方法 within(cn.jast.spring.aop.usage.service..*)
      */
-    @Pointcut("within(cn.jast.spring.aop.service..*)")
+    @Pointcut("within(cn.jast.spring.aop.usage.service..*)")
     public void withinPointcut(){}
 
     /**
      * 使用注解MyAnnotation注释的所有方法
      */
-    @Pointcut("@annotation(cn.jast.spring.aop.annotation.MyAnnotation)")
+    @Pointcut("@annotation(cn.jast.spring.aop.usage.annotation.MyAnnotation)")
     public void annotationAnnotationPointcut(){}
 
     /**
      * 使用注解注释的类中的所有方法
      *
      */
-    @Pointcut("@within(cn.jast.spring.aop.annotation.MyAnnotation)")
+    @Pointcut("@within(cn.jast.spring.aop.usage.annotation.MyAnnotation)")
     public void withinAnnotationPointcut(){}
 
     @Around("withinPointcut()")

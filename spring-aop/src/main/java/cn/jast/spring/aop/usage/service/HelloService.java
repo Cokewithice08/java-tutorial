@@ -1,4 +1,4 @@
-package cn.jast.spring.aop.service;
+package cn.jast.spring.aop.usage.service;
 
 import org.springframework.stereotype.Service;
 
