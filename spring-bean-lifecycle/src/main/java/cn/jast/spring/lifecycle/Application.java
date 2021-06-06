@@ -12,6 +12,7 @@ public class Application {
         FullBean fullBean = context.getBean("fullBean",FullBean.class);
         fullBean.hello();
         ABean abean = context.getBean("aBean", ABean.class);
+        System.out.println(fullBean.getClass().getName());
         context.destroy();
     }
 }
