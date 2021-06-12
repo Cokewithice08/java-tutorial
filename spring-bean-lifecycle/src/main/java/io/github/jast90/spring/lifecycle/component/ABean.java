@@ -1,5 +1,7 @@
-package cn.jast.spring.lifecycle.component;
+package io.github.jast90.spring.lifecycle.component;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -7,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
  * Created by jast90 on 2021/5/31
  */
 public class ABean {
+
+    public static final Logger logger = LoggerFactory.getLogger(ABean.class);
 
     @Value("${hello:hello default}")
     private String hello;
@@ -21,7 +25,7 @@ public class ABean {
 
     @Autowired
     public void setFullBean(FullBean fullBean) {
-        System.out.println("set full bean");
+        logger.debug("set full bean");
         this.fullBean = fullBean;
     }
 

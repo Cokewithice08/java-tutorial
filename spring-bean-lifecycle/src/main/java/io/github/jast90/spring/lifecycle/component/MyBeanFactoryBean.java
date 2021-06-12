@@ -1,4 +1,4 @@
-package cn.jast.spring.lifecycle.component;
+package io.github.jast90.spring.lifecycle.component;
 
 import org.springframework.beans.factory.FactoryBean;
 

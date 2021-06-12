@@ -1,9 +1,8 @@
-package cn.jast.spring.lifecycle.config;
+package io.github.jast90.spring.lifecycle.config;
 
-import cn.jast.spring.lifecycle.component.ABean;
-import cn.jast.spring.lifecycle.component.FullBean;
-import cn.jast.spring.lifecycle.component.MyBeanFactoryBean;
-import org.checkerframework.checker.units.qual.A;
+import io.github.jast90.spring.lifecycle.component.ABean;
+import io.github.jast90.spring.lifecycle.component.FullBean;
+import io.github.jast90.spring.lifecycle.component.MyBeanFactoryBean;
 import org.springframework.beans.factory.config.PropertyOverrideConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,7 +11,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 
 @Configuration
-@ComponentScan(basePackages = "cn.jast")
+@ComponentScan(basePackages = "io.github.jast90")
 public class SpringConfig {
 
     @Bean(initMethod = "customInit",destroyMethod = "customDestroy")

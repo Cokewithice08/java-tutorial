@@ -1,8 +1,9 @@
-package cn.jast.spring.lifecycle.component;
+package io.github.jast90.spring.lifecycle.component;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.*;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
@@ -34,13 +35,15 @@ import javax.annotation.PreDestroy;
 public class FullBean implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware, EnvironmentAware,
         EmbeddedValueResolverAware, ResourceLoaderAware, ApplicationEventPublisherAware, MessageSourceAware,
         ApplicationContextAware,InitializingBean, DisposableBean {
+
+    public static final Logger logger = LoggerFactory.getLogger(FullBean.class);
+
     private String hello;
 
     private ABean aBean;
 
     public FullBean() {
-        System.out.println("\n\n");
-        System.out.println("FullBean constructor");
+        logger.debug("FullBean constructor");
     }
 
     public String getHello() {
@@ -48,7 +51,7 @@ public class FullBean implements BeanNameAware, BeanClassLoaderAware, BeanFactor
     }
 
     public void setHello(String hello) {
-        System.out.println("setHello");
+        logger.debug("setHello");
         this.hello = hello;
     }
 
@@ -57,78 +60,78 @@ public class FullBean implements BeanNameAware, BeanClassLoaderAware, BeanFactor
     }
 
     public void setaBean(ABean aBean) {
-        System.out.println("set aBean");
+        logger.debug("set aBean");
         this.aBean = aBean;
     }
 
     public void setBeanClassLoader(ClassLoader classLoader) {
-        System.out.println("FullBean BeanClassLoaderAware.setBeanClassLoader");
+        logger.debug("FullBean BeanClassLoaderAware.setBeanClassLoader");
     }
 
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-        System.out.println("FullBean BeanFactoryAware.setBeanFactory");
+        logger.debug("FullBean BeanFactoryAware.setBeanFactory");
     }
 
     public void setBeanName(String s) {
-        System.out.println("FullBean BeanNameAware.setBeanName");
+        logger.debug("FullBean BeanNameAware.setBeanName");
     }
 
     public void destroy() throws Exception {
-        System.out.println("FullBean DisposableBean.destroy");
+        logger.debug("FullBean DisposableBean.destroy");
     }
 
     public void afterPropertiesSet() throws Exception {
-        System.out.println("FullBean InitializingBean.afterPropertiesSet");
+        logger.debug("FullBean InitializingBean.afterPropertiesSet");
     }
     public void hello(){
-        System.out.println("hello");
+        logger.debug("hello");
     }
 
     public void customInit(){
-        System.out.println("FullBean custom init");
+        logger.debug("FullBean custom init");
     }
 
     public void customDestroy(){
-        System.out.println("FullBean custom destory");
+        logger.debug("FullBean custom destory");
     }
 
     @PostConstruct
     public void initPostConstruct(){
-        System.out.println("FullBean @PostConstruct 标注的方法");
+        logger.debug("FullBean @PostConstruct 标注的方法");
     }
 
     @PreDestroy
     public void preDestroy(){
-        System.out.println("FullBean @PreDestroy 标注的方法");
+        logger.debug("FullBean @PreDestroy 标注的方法");
     }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        System.out.println("ApplicationContextAware.setApplicationContext");
+        logger.debug("ApplicationContextAware.setApplicationContext");
     }
 
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        System.out.println("ApplicationEventPublisherAware.setApplicationEventPublisher");
+        logger.debug("ApplicationEventPublisherAware.setApplicationEventPublisher");
     }
 
     @Override
     public void setEmbeddedValueResolver(StringValueResolver resolver) {
-        System.out.println("EmbeddedValueResolverAware.setEmbeddedValueResolver");
+        logger.debug("EmbeddedValueResolverAware.setEmbeddedValueResolver");
     }
 
     @Override
     public void setEnvironment(Environment environment) {
-        System.out.println("EnvironmentAware.setEnvironment");
+        logger.debug("EnvironmentAware.setEnvironment");
     }
 
     @Override
     public void setMessageSource(MessageSource messageSource) {
-        System.out.println("MessageSourceAware.setMessageSource");
+        logger.debug("MessageSourceAware.setMessageSource");
     }
 
     @Override
     public void setResourceLoader(ResourceLoader resourceLoader) {
-        System.out.println("ResourceLoaderAware.setResourceLoader");
+        logger.debug("ResourceLoaderAware.setResourceLoader");
     }
 }

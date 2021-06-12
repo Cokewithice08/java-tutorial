@@ -1,7 +1,7 @@
-package cn.jast.spring.lifecycle;
+package io.github.jast90.spring.lifecycle;
 
-import cn.jast.spring.lifecycle.component.FullBean;
-import cn.jast.spring.lifecycle.config.SpringConfig;
+import io.github.jast90.spring.lifecycle.component.FullBean;
+import io.github.jast90.spring.lifecycle.config.SpringConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
