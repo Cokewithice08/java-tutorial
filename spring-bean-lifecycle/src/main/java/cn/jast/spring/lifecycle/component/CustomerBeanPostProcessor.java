@@ -9,12 +9,12 @@ public class CustomerBeanPostProcessor implements BeanPostProcessor {
 
 
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        System.out.println("CustomerBeanPostProcessor.postProcessBeforeInitialization,beanName="+beanName);
+        System.out.println("初始化前 后处理逻辑... 。bean name="+beanName);
         return bean;
     }
 
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        System.out.println("CustomerBeanPostProcessor.postProcessAfterInitialization,beanName="+beanName);
+        System.out.println("初始化后 后处理逻辑... 。beanName="+beanName);
         return bean;
     }
 }

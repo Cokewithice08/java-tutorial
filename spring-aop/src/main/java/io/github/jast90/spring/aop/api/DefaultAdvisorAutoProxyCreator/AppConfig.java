@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * Created by jast90 on 2021/6/3
  */
 @Configuration
-@ComponentScan("cn.jast.spring.aop.api.DefaultAdvisorAutoProxyCreator")
+@ComponentScan("io.github.jast90.spring.aop.api.DefaultAdvisorAutoProxyCreator")
 public class AppConfig {
 
     @Bean

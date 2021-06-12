@@ -22,6 +22,7 @@
         <module>log4j2</module>
         <module>mq</module>
         <module>spring-cache</module>
+        <module>spring-ioc</module>
     </modules>
     <name>java-tutorial</name>
     <packaging>pom</packaging>
