@@ -9,23 +9,20 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mysql-transaction</artifactId>
+    <artifactId>design-pattern</artifactId>
+    <packaging>pom</packaging>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>4.3.25.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-            <version>4.3.25.RELEASE</version>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>abstract-factory</module>
+        <module>builder</module>
+        <module>factory-method</module>
+        <module>prototype</module>
+        <module>simple-factory</module>
+    </modules>
+
 </project>

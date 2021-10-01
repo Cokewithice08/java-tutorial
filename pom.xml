@@ -23,6 +23,8 @@
         <module>mq</module>
         <module>spring-cache</module>
         <module>spring-ioc</module>
+        <module>mybatis</module>
+        <module>design-pattern</module>
     </modules>
     <name>java-tutorial</name>
     <packaging>pom</packaging>

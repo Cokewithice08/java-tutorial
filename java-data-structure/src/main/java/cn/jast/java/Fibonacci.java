@@ -5,6 +5,7 @@ package cn.jast.java;
  */
 public class Fibonacci {
     public static void main(String[] args) {
+        System.out.println(fb(4));
         System.out.println(fb1(4));
     }
 
@@ -17,12 +18,20 @@ public class Fibonacci {
     }
 
     //非递归实现
+    //
     //TODO
     public static long fb1(int n) {
-        int i = 0;
+        int[] data = {0,1};
+        if(n < 2){
+            return data[n];
+        }
+        int fb_n_1 = 1;//保存 n-1的斐波那契的值
+        int fb_n_2 = 0;//保存n-2的斐波那契的值
         int result = 0;
-        while (i < n) {
-            result += i++;
+        for(int i = 2 ; i <= n ; i ++){
+            result = fb_n_1 + fb_n_2;
+            fb_n_2 = fb_n_1;
+            fb_n_1 = result;
         }
         return result;
     }
