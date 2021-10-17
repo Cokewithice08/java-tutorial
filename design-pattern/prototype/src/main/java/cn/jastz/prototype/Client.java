@@ -16,10 +16,9 @@ public class Client {
 /*
 
         try {
-            System.out.println("抛出CloneNotSupportedException");
             NoCloneableEmail email = new NoCloneableEmail();
             email.setTo("337235669@qq.com");
-            NoCloneableEmail emailCopy = (NoCloneableEmail) email.clone();
+            NoCloneableEmail emailCopy = (NoCloneableEmail) email.clone();//抛出CloneNotSupportedException
             System.out.println(email);
             System.out.println(emailCopy);
         } catch (CloneNotSupportedException e) {

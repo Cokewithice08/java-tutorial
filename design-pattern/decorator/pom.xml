@@ -6,25 +6,15 @@
         <artifactId>parent-modules</artifactId>
         <groupId>cn.jast</groupId>
         <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>design-pattern</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>decorator</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
-
-    <modules>
-        <module>abstract-factory</module>
-        <module>builder</module>
-        <module>factory-method</module>
-        <module>prototype</module>
-        <module>simple-factory</module>
-        <module>decorator</module>
-        <module>chain-of-responsibility</module>
-    </modules>
 
 </project>

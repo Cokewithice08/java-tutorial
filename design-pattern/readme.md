@@ -6,3 +6,5 @@
 3. Abstract Factory
 4. Builder
 5. Prototype
+6. Decorator
+7. chain of responsibility
