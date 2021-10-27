@@ -13,7 +13,6 @@
         <module>spring-circular-dependencies</module>
         <module>java-thread</module>
         <module>java-jvm</module>
-        <module>java-consistent-hash</module>
         <module>java-aqs</module>
         <module>mysql-transaction</module>
         <module>java-spi</module>
@@ -25,6 +24,7 @@
         <module>spring-ioc</module>
         <module>mybatis</module>
         <module>design-pattern</module>
+        <module>distributed</module>
     </modules>
     <name>java-tutorial</name>
     <packaging>pom</packaging>
@@ -45,7 +45,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.2</version>
             </plugin>
         </plugins>
     </build>
