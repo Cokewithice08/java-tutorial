@@ -12,6 +12,9 @@
 
 - [Java数据结构](./java-data-structure)
 - [剑指offer Java实现](./java-offer)
+
+## 设计模式
+[设计模式](./design-pattern)
   
 ## Spring
 
@@ -26,9 +29,11 @@
 ## 日志
 - [log4j2](./log4j2)
 
-## 分布式算法
+## 分布式
 
-- [一致性散列算法Java实现](./java-consistent-hash)
+- [一致性散列算法Java实现](./distributed/consistent-hash)
+- [分布式锁](./distributed/distributed-lock)
+- [分布式文件系统](./distributed/fs)
 
 ## 缓存
 

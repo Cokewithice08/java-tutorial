@@ -32,6 +32,11 @@ public class Application {
         logger.debug(bean.getClass().getName());
         String object = bean.getObject();
         logger.debug(object);
+        logger.debug(bean.getObject());
+
+        Object myBeanFactoryBean = context.getBean("myBeanFactoryBean");
+        System.out.println("----------------------"+myBeanFactoryBean);
+        System.out.println("----------------------"+context.getBean("myBeanFactoryBean"));
         context.destroy();
     }
 }

@@ -5,6 +5,7 @@ import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.imps.CuratorFrameworkState;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 
 public class CuratorFactory extends BasePooledObjectFactory<CuratorFramework> {
@@ -25,5 +26,14 @@ public class CuratorFactory extends BasePooledObjectFactory<CuratorFramework> {
     @Override
     public PooledObject<CuratorFramework> wrap(CuratorFramework curatorFramework) {
         return new DefaultPooledObject<>(curatorFramework);
+    }
+
+    @Override
+    public void destroyObject(PooledObject<CuratorFramework> p) throws Exception {
+        super.destroyObject(p);
+        CuratorFramework curatorFramework = p.getObject();
+        if (curatorFramework != null && curatorFramework.getState()== CuratorFrameworkState.STARTED) {
+            curatorFramework.close();
+        }
     }
 }

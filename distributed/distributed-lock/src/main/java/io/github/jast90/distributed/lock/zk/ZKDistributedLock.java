@@ -17,6 +17,7 @@ public class ZKDistributedLock implements IDistributedLock {
     private CuratorFrameworkPool pool;
 
     private CuratorFramework resource;
+
     private boolean usePool;
 
     public ZKDistributedLock(String lockName){
@@ -42,7 +43,7 @@ public class ZKDistributedLock implements IDistributedLock {
 
     @Override
     public boolean tryLock() throws Exception {
-        return this.tryLock(10,TimeUnit.SECONDS);
+        return this.tryLock(-1,null);
     }
 
     @Override
