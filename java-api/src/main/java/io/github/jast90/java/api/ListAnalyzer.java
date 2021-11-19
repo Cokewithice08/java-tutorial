@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by jast90 on 2021/4/23
@@ -12,9 +15,10 @@ public class ListAnalyzer {
 
     public static void main(String[] args) {
 //        add();
-        fori();
+//        fori();
 //        foreach();
 //        iterator();
+        arrayListConcurrenceAdd();
     }
 
     /**
@@ -138,6 +142,28 @@ public class ListAnalyzer {
         }
 
         System.out.println(String.format("LinkedList iterator cost time :%s ms",System.currentTimeMillis()-start));
+
+    }
+
+    /**
+     * ArrayList 线程安全测试
+     */
+    public static void arrayListConcurrenceAdd(){
+        List<Integer> list = new CopyOnWriteArrayList<>();
+        ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        for(int i = 0;i<10000;i++){
+            pool.submit(()->{
+                list.add(1);
+            });
+        }
+
+        pool.shutdown();
+        while (true){
+            if(pool.isTerminated()){
+                System.out.println(list.size());
+                break;
+            }
+        }
 
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 public class CacheService {
 
-    @Cacheable(value = "cache",key = "#id",cacheManager = "cacheManager")
+    @Cacheable(value = "cache",key = "'keys:'.concat(#id)",cacheManager = "cacheManager")
     public List<String> helloCache(int id){
         List<String> list = new ArrayList<>();
         list.add("Hello");

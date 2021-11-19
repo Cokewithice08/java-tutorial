@@ -6,6 +6,7 @@ import java.util.Arrays;
  * 交换排序
  * 1. 冒泡排序：稳定；时间O(n^2)；空间O(1)
  * 2. 快速排序
+ * 3. 堆排序
  */
 public class SwapSorts extends AbstractSorts {
 

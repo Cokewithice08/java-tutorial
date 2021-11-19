@@ -25,6 +25,7 @@
         <module>mybatis</module>
         <module>design-pattern</module>
         <module>distributed</module>
+        <module>swt</module>
     </modules>
     <name>java-tutorial</name>
     <packaging>pom</packaging>
