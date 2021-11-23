@@ -21,6 +21,7 @@
 - [Spring AOP](./spring-aop)
 - [Spring 生命周期](./spring-lifecycle)
 - [Spring 循环依赖](./spring-circular-dependencies)
+- [Spring Cache](./spring-cache)
 
 ## 数据库
 
