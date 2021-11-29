@@ -17,16 +17,29 @@ public class Application {
 
     public static void main(String[] args) throws Exception {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-        FullBean fullBean = context.getBean("fullBean",FullBean.class);
+//        beanA(context);
+        customBeanFactory(context);
+    }
+
+    private static void getBeanByClass(AnnotationConfigApplicationContext context ){
         String[] beanNamesForType = context.getBeanNamesForType(BeanPostProcessor.class);
         logger.debug(""+ Arrays.toString(beanNamesForType));
         logger.debug("BeanDefinitionNames:"+Arrays.toString(context.getBeanDefinitionNames()));
+    }
+
+    private static void fullBean(AnnotationConfigApplicationContext context ){
+        FullBean fullBean = context.getBean("fullBean",FullBean.class);
         fullBean.hello();
         logger.debug(fullBean.getClass().getName());
+    }
+
+    private static void beanA(AnnotationConfigApplicationContext context){
         ABean abean = context.getBean("aBean", ABean.class);
         logger.debug("ABean.hello:" + abean.getHello());
         logger.debug("ABean.name:" + abean.getName());
+    }
 
+    private static void customBeanFactory(AnnotationConfigApplicationContext context) throws Exception {
         //自定义factoryBean
         FactoryBean<String> bean = context.getBean("&myBeanFactoryBean", FactoryBean.class);
         logger.debug(bean.getClass().getName());
@@ -38,5 +51,6 @@ public class Application {
         System.out.println("----------------------"+myBeanFactoryBean);
         System.out.println("----------------------"+context.getBean("myBeanFactoryBean"));
         context.destroy();
+
     }
 }

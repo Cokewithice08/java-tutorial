@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 
 @Configuration
@@ -28,12 +29,14 @@ public class AppConfig {
         redisTemplate.setHashKeySerializer(new GenericJackson2JsonRedisSerializer());
         redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
         redisTemplate.setConnectionFactory(redisConnectionFactory());
+
         return redisTemplate;
     }
 
     @Bean
     public JedisConnectionFactory redisConnectionFactory(){
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+        jedisConnectionFactory.setHostName("192.168.56.102");
         return jedisConnectionFactory;
     }
 
