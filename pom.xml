@@ -26,6 +26,7 @@
         <module>design-pattern</module>
         <module>distributed</module>
         <module>swt</module>
+        <module>java-jdbc</module>
     </modules>
     <name>java-tutorial</name>
     <packaging>pom</packaging>
