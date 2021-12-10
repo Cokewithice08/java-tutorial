@@ -16,7 +16,7 @@ import java.util.List;
  * @date 2021/12/9 10:49
  */
 public class Basic {
-    final static String url = "jdbc:mysql://192.168.56.102:3306/jdbc";
+    final static String url = "jdbc:mysql://192.168.56.102:3306";
     final static String username = "root";
     final static String password = "123456";
 
@@ -31,8 +31,8 @@ public class Basic {
 //        createTable();
 //        dropTable();
 //        insert();
-        query();
-//        showCreateTable();
+//        query();
+        showCreateTable();
 //        alterTable();
 
     }
@@ -42,17 +42,33 @@ public class Basic {
         return doExecute(sql,"createTable");
     }
 
+    private static Connection getConnection() {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            connection.setCatalog("jdbc");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return connection;
+    }
     private static boolean doExecute(String sql,String action){
         boolean result = false;
+        Connection connection = getConnection();
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
             result = true;
-        } catch (SQLSyntaxErrorException throwables) {
-            throwables.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        } finally {
+            if(connection!=null){
+                try {
+                    connection.close();
+                } catch (SQLException throwable) {
+                    throwable.printStackTrace();
+                }
+            }
         }
         if(result){
             System.out.println(String.format("%s table success",action));
@@ -68,7 +84,7 @@ public class Basic {
     public static void showCreateTable(){
         try {
             String sql = "show create table post";
-            Connection connection = DriverManager.getConnection(url, username, password);
+            Connection connection = getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
@@ -81,27 +97,13 @@ public class Basic {
     }
 
     public static boolean dropTable() throws SQLException {
-        boolean result = false;
-        try {
-            String sql = "drop table post";
-            Connection connection = DriverManager.getConnection(url, username, password);
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(sql);
-            result = true;
-        } catch (SQLSyntaxErrorException throwables) {
-            throwables.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        if(result){
-            System.out.println("drop table success");
-        }
-        return result;
+        String sql = "drop table post";
+        return doExecute(sql, "dropTable");
     }
 
     public static boolean insert() throws SQLException {
         String sql = "insert into post(title,`desc`) values(?,?)";
-        Connection connection = DriverManager.getConnection(url, username, password);
+        Connection connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1,"Mybatis.");
         preparedStatement.setString(2,"Mybatis.");
@@ -123,7 +125,7 @@ public class Basic {
         //获取查询sql字段
         List<String> columns = ReflectUtil.columns(sql);
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
+            Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             //填充参数
             ReflectUtil.fillParams(preparedStatement,param);
