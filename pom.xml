@@ -27,6 +27,8 @@
         <module>distributed</module>
         <module>swt</module>
         <module>java-jdbc</module>
+        <module>java-swing</module>
+        <module>sharding-jdbc-ha</module>
     </modules>
     <name>java-tutorial</name>
     <packaging>pom</packaging>

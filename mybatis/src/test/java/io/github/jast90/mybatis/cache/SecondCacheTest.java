@@ -1,12 +1,13 @@
 package io.github.jast90.mybatis.cache;
 
+import io.github.jast90.mybatis.BaseTest;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 /**
  * 二级缓存，不同的sqlSession中同一个namesapce下的相同查询语句是会读写缓存的。
  */
-public class SecondCacheTest extends BaseTest{
+public class SecondCacheTest extends BaseTest {
 
     @Test
     public void secondCache(){

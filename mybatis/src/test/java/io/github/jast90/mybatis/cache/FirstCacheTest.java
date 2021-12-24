@@ -1,5 +1,6 @@
 package io.github.jast90.mybatis.cache;
 
+import io.github.jast90.mybatis.BaseTest;
 import org.apache.ibatis.cache.Cache;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
@@ -12,7 +13,7 @@ import java.util.Collection;
  * - 缓存范围是statement时，都不会读写缓存。
  *
  */
-public class FirstCacheTest extends BaseTest{
+public class FirstCacheTest extends BaseTest {
 
     @Test
     public void firstSessionCache(){

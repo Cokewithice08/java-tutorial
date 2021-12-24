@@ -1,4 +1,4 @@
-package io.github.jast90.mybatis.cache;
+package io.github.jast90.mybatis;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;

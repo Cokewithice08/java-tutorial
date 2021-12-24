@@ -28,10 +28,10 @@ public class ZKDistributedLock implements IDistributedLock {
         this.usePool = usePool;
         try {
             if(usePool){
-                pool = new CuratorFrameworkPool(new CuratorFactory("192.168.56.101:2181"));
+                pool = new CuratorFrameworkPool(new CuratorFactory("192.168.56.102:2181"));
                 resource = pool.getResource();
             }else{
-                resource = CuratorFrameworkFactory.newClient("192.168.56.101:2181", new ExponentialBackoffRetry(1000, 3));
+                resource = CuratorFrameworkFactory.newClient("192.168.56.101:2182", new ExponentialBackoffRetry(1000, 3));
                 resource.start();
             }
 

@@ -11,7 +11,7 @@ public class BaseTest {
 
     @Before
     public void before(){
-        this.client = CuratorFrameworkFactory.newClient("192.168.56.101:2181",
+        this.client = CuratorFrameworkFactory.newClient("192.168.56.102:2181",
                 new ExponentialBackoffRetry(1000, 3));
         client.start();
     }

@@ -1,5 +1,8 @@
 package io.github.jast90.jdbc.usage;
 
+import com.google.common.collect.Lists;
+import org.apache.commons.collections.CollectionUtils;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,19 +31,21 @@ public class Basic {
             e.printStackTrace();
         }
     }
+
     public static void main(String[] args) throws SQLException {
 //        createTable();
 //        dropTable();
 //        insert();
 //        query();
-        showCreateTable();
+//        showCreateTable();
 //        alterTable();
+        batchInsert();
 
     }
 
     public static boolean createTable() {
         String sql = "create table post(id int not null primary key auto_increment,title varchar(128)) engine InnoDB character set utf8";
-        return doExecute(sql,"createTable");
+        return doExecute(sql, "createTable");
     }
 
     private static Connection getConnection() {
@@ -52,7 +58,8 @@ public class Basic {
         }
         return connection;
     }
-    private static boolean doExecute(String sql,String action){
+
+    private static boolean doExecute(String sql, String action) {
         boolean result = false;
         Connection connection = getConnection();
         try {
@@ -62,7 +69,7 @@ public class Basic {
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         } finally {
-            if(connection!=null){
+            if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException throwable) {
@@ -70,28 +77,28 @@ public class Basic {
                 }
             }
         }
-        if(result){
-            System.out.println(String.format("%s table success",action));
+        if (result) {
+            System.out.println(String.format("%s table success", action));
         }
         return result;
     }
 
-    public static boolean alterTable(){
+    public static boolean alterTable() {
         String sql = "alter table post add (`desc` varchar(128) not null)";
-        return doExecute(sql,"alterTable");
+        return doExecute(sql, "alterTable");
     }
 
-    public static void showCreateTable(){
+    public static void showCreateTable() {
         try {
             String sql = "show create table post";
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 System.out.println(resultSet.getString(1));
                 System.out.println(resultSet.getString(2));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -105,22 +112,48 @@ public class Basic {
         String sql = "insert into post(title,`desc`) values(?,?)";
         Connection connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1,"Mybatis.");
-        preparedStatement.setString(2,"Mybatis.");
-        if(preparedStatement.executeUpdate() == 1){
+        preparedStatement.setString(1, "Mybatis.");
+        preparedStatement.setString(2, "Mybatis.");
+        if (preparedStatement.executeUpdate() == 1) {
             System.out.println("插入数据成功");
             return true;
         }
         return false;
     }
 
-    public static void query(){
+    public static boolean batchInsert() throws SQLException {
+        List<Post> posts = Lists.newArrayList();
+        for (int i=0;i<=3;i++){
+            Post post = new Post();
+            post.setTitle("hello"+i);
+            post.setDecs("hello"+i);
+            posts.add(post);
+        }
+        String sql = "insert into post(title,`desc`) values(?,?)";
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        for (Post each : posts) {
+            preparedStatement.setString(1, each.getTitle());
+            preparedStatement.setString(2, each.getDecs());
+            preparedStatement.addBatch();
+            preparedStatement.clearParameters();
+        }
+        int[] count = preparedStatement.executeBatch();
+        if (count.length>0) {
+            System.out.println(Arrays.toString(count));
+            System.out.println("插入数据成功");
+            return true;
+        }
+        return false;
+    }
+
+    public static void query() {
         String sql = "select id,title from post";
         List<Post> posts = doQuery(sql, Post.class);
         System.out.println(posts);
     }
 
-    private static <T> List<T> doQuery(String sql,Class<T> tClass,Object... param){
+    private static <T> List<T> doQuery(String sql, Class<T> tClass, Object... param) {
         List<T> list = new ArrayList<>(0);
         //获取查询sql字段
         List<String> columns = ReflectUtil.columns(sql);
@@ -128,14 +161,14 @@ public class Basic {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             //填充参数
-            ReflectUtil.fillParams(preparedStatement,param);
+            ReflectUtil.fillParams(preparedStatement, param);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 T t = tClass.newInstance();
                 for (String column : columns) {
                     //字段赋值
-                    ReflectUtil.setFieldValue(t,resultSet,column,columns.indexOf(column)+1,tClass);
+                    ReflectUtil.setFieldValue(t, resultSet, column, columns.indexOf(column) + 1, tClass);
                 }
                 list.add(t);
             }
