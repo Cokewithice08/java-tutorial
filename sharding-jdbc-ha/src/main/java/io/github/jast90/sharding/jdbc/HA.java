@@ -28,6 +28,10 @@ import java.util.Random;
  * @date 2021/12/16 10:36
  */
 public class HA {
+    private final static String dbHost = "localhost";
+    private final static String dbPort = "3307";
+    private final static String zkHost = "localhost";
+    private final static String zkPort = "2181";
 
     public static void main(String[] args) throws SQLException {
 
@@ -37,7 +41,7 @@ public class HA {
         // 配置第 1 个数据源
         HikariDataSource dataSource1 = new HikariDataSource();
         dataSource1.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource1.setJdbcUrl("jdbc:mysql://192.168.56.102:3306/ds0");
+        dataSource1.setJdbcUrl(String.format("jdbc:mysql://%s:%s/ds0",dbHost,dbPort));
         dataSource1.setUsername("root");
         dataSource1.setPassword("123456");
         dataSourceMap.put("ds0", dataSource1);
@@ -45,7 +49,7 @@ public class HA {
         // 配置第 2 个数据源
         HikariDataSource dataSource2 = new HikariDataSource();
         dataSource2.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource2.setJdbcUrl("jdbc:mysql://192.168.56.102:3306/ds1");
+        dataSource2.setJdbcUrl(String.format("jdbc:mysql://%s:%s/ds1",dbHost,3308));
         dataSource2.setUsername("root");
         dataSource2.setPassword("123456");
         dataSourceMap.put("ds1", dataSource2);
@@ -79,19 +83,20 @@ public class HA {
         ClusterPersistRepositoryConfiguration registryCenterConfig = new ClusterPersistRepositoryConfiguration(
                 "Zookeeper",
                 "governance-sharding-data-source",
-                "192.168.56.102:2181",
+                String.format("%s:%s",zkHost,zkPort),
                 properties);
         // 配置 Cluster Config
-        ModeConfiguration modeConfig = new ModeConfiguration("Cluster", registryCenterConfig, true);
+        ModeConfiguration modeConfig = new ModeConfiguration("Cluster", registryCenterConfig, false);
 
         // 创建 ShardingSphereDataSource
-        DataSource dataSource = ShardingSphereDataSourceFactory.createDataSource(modeConfig,dataSourceMap, Collections.singletonList(shardingRuleConfig),
+        DataSource dataSource ;
+        dataSource = ShardingSphereDataSourceFactory.createDataSource(modeConfig,dataSourceMap, Collections.singletonList(shardingRuleConfig),
                 new Properties());
-
-        String sql = "SELECT o.* FROM t_order o WHERE o.user_id=? AND o.order_id=?";
-
+//        dataSource = ShardingSphereDataSourceFactory.createDataSource(modeConfig);
         try (Connection conn = dataSource.getConnection();) {
-            batchInsert(conn);
+//            batchInsert(conn);
+            query(conn);
+//            createTable(conn);
         }
 
     }
@@ -112,9 +117,26 @@ public class HA {
     }
 
     private static void query(Connection connection){
-        String sql = "SELECT o.* FROM t_order o WHERE o.user_id=? AND o.order_id=?";
+        String sql = "SELECT order_id,user_id FROM t_order order by order_id";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                System.out.println(String.format("order_id:%s user_id:%s",resultSet.getLong(1),
+                        resultSet.getLong(2)));
 
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private static void createTable(Connection connection){
+        String sql = "create table post(id int not null primary key auto_increment,title varchar(128)) engine InnoDB character set utf8";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            boolean execute = ps.execute();
+            if(execute){
+                System.out.println("创建表成功");
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
