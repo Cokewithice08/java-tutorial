@@ -20,7 +20,7 @@ public class SchemaOperationTest {
 
     @Test
     public void create(){
-        new SchemaOperation().create("test");
+        new SchemaOperation().create("jdbc");
     }
 
     @Test

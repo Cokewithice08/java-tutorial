@@ -1,4 +1,4 @@
-package io.github.jast90.jdbc.client.operation;
+package io.github.jast90.jdbc.client.util;
 
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;

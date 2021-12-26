@@ -1,5 +1,7 @@
 package io.github.jast90.jdbc.client.operation;
 
+import io.github.jast90.jdbc.client.util.DbConfig;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

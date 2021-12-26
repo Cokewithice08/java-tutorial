@@ -1,5 +1,9 @@
 package io.github.jast90.jdbc.client.operation;
 
+import io.github.jast90.jdbc.client.domain.Column;
+
+import java.util.List;
+
 /**
  * 表操作
  *
@@ -21,4 +25,6 @@ public interface ITableOperation {
     void dropTable(String db,String table);
 
     String showCreateTable(String db,String table);
+
+    List<Column> showColumns(String db,String table);
 }
