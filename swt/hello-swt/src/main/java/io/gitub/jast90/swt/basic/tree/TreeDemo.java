@@ -1,4 +1,4 @@
-package io.gitub.jast90.swt.tree;
+package io.gitub.jast90.swt.basic.tree;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;

@@ -1,4 +1,4 @@
-package io.gitub.jast90.swt.hello;
+package io.gitub.jast90.swt.basic.hello;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;

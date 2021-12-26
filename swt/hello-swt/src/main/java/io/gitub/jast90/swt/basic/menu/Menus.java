@@ -1,4 +1,4 @@
-package io.gitub.jast90.swt.menu;
+package io.gitub.jast90.swt.basic.menu;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;

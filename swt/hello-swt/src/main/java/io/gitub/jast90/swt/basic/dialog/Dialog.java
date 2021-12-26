@@ -1,4 +1,4 @@
-package io.gitub.jast90.swt.shell.dialog;
+package io.gitub.jast90.swt.basic.dialog;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.RowLayout;
