@@ -15,7 +15,9 @@ public class MyTreeTest extends AbstractTest {
 
     @Override
     protected void addComponent(Shell shell) {
-        MyTree myTree = new MyTree(shell, SWT.BORDER, getData());
+        MyTree myTree = new MyTree(shell, SWT.BORDER, getData(),shell);
+        myTree.pack();
+        shell.pack();
     }
 
     public static void main(String[] args) {

@@ -1,7 +1,6 @@
 package io.gitub.jast90.swt.component.base;
 
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -18,7 +17,7 @@ public abstract class AbstractTest {
         Display display = new Display();
         final Shell shell = new Shell(display);
         shell.setText (this.title);
-        shell.setLayout (new RowLayout());
+        shell.setLayout(new RowLayout());
         addComponent(shell);
         shell.setSize(new Point(800,800));
         shell.open();
