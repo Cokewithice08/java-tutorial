@@ -4,6 +4,8 @@ import io.github.jast90.zk.client.SessionManager;
 import io.github.jast90.zk.client.ZkManager;
 import io.github.jast90.zk.client.ZookeeperConfig;
 import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.imps.CuratorFrameworkState;
+import org.apache.zookeeper.ZooKeeper;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Dialog;
@@ -68,6 +70,7 @@ public class ConnectDialog extends Dialog {
         lblNewLabel.setText("Host");
 
         hostText = new Text(shell, SWT.BORDER);
+        hostText.setText("localhost");
         hostText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 
         Label lblPort = new Label(shell, SWT.NONE);
@@ -75,6 +78,7 @@ public class ConnectDialog extends Dialog {
         lblPort.setText("Port");
 
         portText = new Text(shell, SWT.BORDER);
+        portText.setText("2181");
         portText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         new Label(shell, SWT.NONE);
 
@@ -89,12 +93,22 @@ public class ConnectDialog extends Dialog {
                 ZookeeperConfig zookeeperConfig = new ZookeeperConfig();
                 zookeeperConfig.setHost(host);
                 zookeeperConfig.setPort(port);
-                CuratorFramework connection = ZkManager.getConnection(zookeeperConfig);
-                if (connection != null) {
-                    SessionManager.setCurrentConfig(zookeeperConfig);
-                    connection.close();
-                    main.updateTree();
-                    shell.close();
+                CuratorFramework connection = null;
+                try {
+                    connection = ZkManager.getConnection(zookeeperConfig);
+                    byte[] bytes = connection.getData().forPath("/");
+                    if(bytes != null){
+                        SessionManager.setCurrentConfig(zookeeperConfig);
+                        main.updateTree();
+                        shell.close();
+                    }
+
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }finally {
+                    if(connection != null){
+                        connection.close();
+                    }
                 }
             }
         });

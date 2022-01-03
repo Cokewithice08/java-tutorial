@@ -5,9 +5,11 @@ import io.github.jast90.swt.component.tree.TreeNode;
 import io.github.jast90.zk.client.SessionManager;
 import io.github.jast90.zk.client.ZkManager;
 import org.apache.curator.framework.CuratorFramework;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TreeItem;
 
 import java.util.ArrayList;
@@ -68,7 +70,7 @@ public class ZkTree extends MyTree {
 
     @Override
     public String getData4Item(TreeItem root) {
-        if (root != null && root.getData() == null) {
+        if (root == null || root.getData() == null) {
             text.setText("");
             return null;
         }
@@ -81,6 +83,7 @@ public class ZkTree extends MyTree {
             if (bytes != null) {
                 str = new String(bytes);
             }
+            SessionManager.setCurrentPath(path);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,5 +95,35 @@ public class ZkTree extends MyTree {
         text.setText(str);
         text.setLineJustify(0,1,true);
         return str;
+    }
+
+    @Override
+    public void deleteNode(TreeItem treeItem) {
+        String path = (String) treeItem.getData();
+        ConfirmDailog confirmDailog = new ConfirmDailog(getShell(), SWT.NONE,"删除节点",String.format("确定删除节点%s",path),
+                new SelectionAdapter(){
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                CuratorFramework connection = ZkManager.getConnection();
+                if(connection!=null){
+                    try {
+                        connection.delete().forPath(path);
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
+
+                }
+            }
+        });
+        confirmDailog.open();
+
+    }
+
+    @Override
+    public void addNode(TreeItem treeItem) {
+        String path = (String) treeItem.getData();
+        String prefix = String.format("%s%s", path, Objects.equals("/", path) ? "" : "/");
+        NodeAddDialog nodeAddDialog = new NodeAddDialog(getShell(), SWT.NONE, prefix, "添加节点");
+        nodeAddDialog.open();
     }
 }

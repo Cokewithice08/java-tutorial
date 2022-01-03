@@ -1,10 +1,16 @@
 package io.github.jast90.swt.component.tree;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
@@ -13,7 +19,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class MyTree extends Composite {
-    private Tree tree;
+    protected Tree tree;
 
     public MyTree(Composite parent, int style) {
         super(parent, style);
@@ -44,6 +50,39 @@ public class MyTree extends Composite {
             getData4Item((TreeItem) event.item);
         });
 
+        Menu treeMenu = new Menu(tree);
+        tree.setMenu(treeMenu);
+        MenuItem addNode = new MenuItem(treeMenu, SWT.NONE);
+        addNode.setText("添加");
+        addNode.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                TreeItem treeItem = tree.getSelection()[0];
+                addNode(treeItem);
+                tree.redraw();
+            }
+        });
+        MenuItem deleteNode = new MenuItem(treeMenu, SWT.NONE);
+        deleteNode.setText("删除");
+        deleteNode.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                TreeItem treeItem = tree.getSelection()[0];
+                deleteNode(treeItem);
+                treeItem.dispose();
+            }
+        });
+
+        MenuItem refreshNode = new MenuItem(treeMenu, SWT.NONE);
+        refreshNode.setText("刷新");
+        refreshNode.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                TreeItem treeItem = tree.getSelection()[0];
+                tree.update();
+                tree.getParent().layout();
+            }
+        });
     }
 
     public void updateTree(){
@@ -86,5 +125,13 @@ public class MyTree extends Composite {
 
     public String getData4Item(TreeItem root){
         throw new UnsupportedOperationException();
+    }
+
+    public void deleteNode(TreeItem treeItem){
+
+    }
+
+    public void addNode(TreeItem treeItem){
+
     }
 }

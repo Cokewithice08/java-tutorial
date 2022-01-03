@@ -2,6 +2,7 @@ package io.github.jast90.zk.client;
 
 import io.github.jast90.swt.component.menu.MenuNode;
 import io.github.jast90.swt.component.menu.MyMenu;
+import io.github.jast90.zk.client.ui.AbortDialog;
 import io.github.jast90.zk.client.ui.ConnectDialog;
 import io.github.jast90.zk.client.ui.Main;
 import org.eclipse.swt.SWT;
@@ -43,8 +44,24 @@ public class ZookeeperClient {
         children.add(child);
         serverMenu.setChildren(children);
         list.add(serverMenu);
-        MyMenu myMenu = new MyMenu(list,shell);
 
+        MenuNode abortMenu = new MenuNode();
+        abortMenu.setTitle("关于");
+        List<MenuNode> abortChildren = new ArrayList<>();
+        MenuNode appreciation = new MenuNode();
+        appreciation.setTitle("赞赏");
+        appreciation.setSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                AbortDialog abortDialog = new AbortDialog(shell, SWT.NONE);
+                abortDialog.open();
+            }
+
+        });
+        abortChildren.add(appreciation);
+        abortMenu.setChildren(abortChildren);
+        list.add(abortMenu);
+        MyMenu myMenu = new MyMenu(list,shell);
 
         shell.open();
 //		shell.layout();
