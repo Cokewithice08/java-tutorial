@@ -1,7 +1,7 @@
-package io.gitub.jast90.swt.component.tab;
+package io.github.jast90.swt.component.tab;
 
-import io.gitub.jast90.swt.component.table.MyTable;
-import io.gitub.jast90.swt.component.table.MyTableTest;
+import io.github.jast90.swt.component.table.MyTable;
+import io.github.jast90.swt.component.table.MyTableTest;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
@@ -24,12 +24,12 @@ public class TabTable extends Composite {
     }
 
     private void init(){
-        tabFolder = new TabFolder(this, SWT.BORDER);
+        tabFolder = new TabFolder(this, SWT.NONE);
         Rectangle clientArea = shell.getClientArea ();
         tabFolder.setLocation (clientArea.x, clientArea.y);
         TabItem item = new TabItem (tabFolder, SWT.NONE);
         item.setText (title);
-        MyTable myTable = new MyTable(tabFolder,SWT.BORDER,shell, MyTableTest.getData());
+        MyTable myTable = new MyTable(tabFolder,SWT.BORDER, MyTableTest.getData());
         item.setControl (myTable);
 
         TabItem item1 = new TabItem (tabFolder, SWT.NONE);

@@ -1,8 +1,8 @@
-package io.gitub.jast90.swt.component.table;
+package io.github.jast90.swt.component.table;
 
-import io.gitub.jast90.swt.component.base.AbstractTest;
+import io.github.jast90.swt.component.base.AbstractTest;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Shell;
 
 import java.util.ArrayList;
@@ -15,8 +15,8 @@ public class MyTableTest extends AbstractTest {
 
     @Override
     protected void addComponent(Shell shell) {
-        shell.setLayout(new RowLayout());
-        new MyTable(shell, SWT.FILL,shell,getData());
+        shell.setLayout(new FillLayout());
+        new MyTable(shell, SWT.FILL,getData());
     }
 
     public static void main(String[] args) {

@@ -1,14 +1,8 @@
-package io.gitub.jast90.swt.component.tab;
+package io.github.jast90.swt.component.tab;
 
-import io.gitub.jast90.swt.component.base.AbstractTest;
-import io.gitub.jast90.swt.component.table.MyTable;
-import io.gitub.jast90.swt.component.table.TableData;
+import io.github.jast90.swt.component.base.AbstractTest;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Shell;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TabTableTest extends AbstractTest {
     public TabTableTest(String title) {

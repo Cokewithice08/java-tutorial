@@ -1,4 +1,4 @@
-package io.gitub.jast90.swt.component.table;
+package io.github.jast90.swt.component.table;
 
 import java.util.List;
 

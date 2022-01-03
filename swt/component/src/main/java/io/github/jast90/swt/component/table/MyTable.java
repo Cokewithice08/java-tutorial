@@ -1,22 +1,20 @@
-package io.gitub.jast90.swt.component.table;
+package io.github.jast90.swt.component.table;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
 
 public class MyTable extends Composite {
-    private Shell shell;
     private Table table;
     private TableData tableData;
 
-    public MyTable(Composite parent, int style, Shell shell, TableData tableData) {
+    public MyTable(Composite parent, int style, TableData tableData) {
         super(parent, style);
-        this.shell = shell;
         this.tableData = tableData;
+        setLayout(new FillLayout(SWT.HORIZONTAL));
         init();
     }
 
@@ -47,6 +45,5 @@ public class MyTable extends Composite {
             table.getColumn (i).pack ();
         }
         table.pack();
-        shell.pack();
     }
 }

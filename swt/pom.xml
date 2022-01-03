@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>hello-swt</module>
+        <module>component</module>
+        <module>zk-client-gui</module>
     </modules>
 
     <properties>
