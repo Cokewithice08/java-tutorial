@@ -12,6 +12,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TreeItem;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,9 +36,9 @@ public class ZkTree extends MyTree {
 
     @Override
     public List<TreeNode> getRootNodes() {
-        if(SessionManager.getCurrentConfig() ==null){
+        if (SessionManager.getCurrentConfig() == null) {
             return new ArrayList<>();
-        }else{
+        } else {
             return super.getRootNodes();
         }
     }
@@ -46,11 +47,8 @@ public class ZkTree extends MyTree {
     public List<TreeNode<String>> getTreeNodes(TreeItem root) {
         String path = (String) root.getData();
         List<TreeNode<String>> list = new ArrayList<>();
-        CuratorFramework connection = null;
-        try {
-            connection = ZkManager.getConnection();
+        try (CuratorFramework connection = ZkManager.getConnection()) {
             List<String> strings = connection.getChildren().forPath(path);
-
             TreeNode<String> treeNode;
             for (String string : strings) {
                 treeNode = new TreeNode();
@@ -60,10 +58,6 @@ public class ZkTree extends MyTree {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                connection.close();
-            }
         }
         return list;
     }
@@ -93,28 +87,28 @@ public class ZkTree extends MyTree {
             }
         }
         text.setText(str);
-        text.setLineJustify(0,1,true);
+        text.setLineJustify(0, 1, true);
         return str;
     }
 
     @Override
     public void deleteNode(TreeItem treeItem) {
         String path = (String) treeItem.getData();
-        ConfirmDailog confirmDailog = new ConfirmDailog(getShell(), SWT.NONE,"删除节点",String.format("确定删除节点%s",path),
-                new SelectionAdapter(){
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                CuratorFramework connection = ZkManager.getConnection();
-                if(connection!=null){
-                    try {
-                        connection.delete().forPath(path);
-                    } catch (Exception exception) {
-                        exception.printStackTrace();
-                    }
+        ConfirmDailog confirmDailog = new ConfirmDailog(getShell(), SWT.NONE, "删除节点", String.format("确定删除节点%s", path),
+                new SelectionAdapter() {
+                    @Override
+                    public void widgetSelected(SelectionEvent e) {
+                        CuratorFramework connection = ZkManager.getConnection();
+                        if (connection != null) {
+                            try {
+                                connection.delete().forPath(path);
+                            } catch (Exception exception) {
+                                exception.printStackTrace();
+                            }
 
-                }
-            }
-        });
+                        }
+                    }
+                });
         confirmDailog.open();
 
     }
@@ -123,7 +117,21 @@ public class ZkTree extends MyTree {
     public void addNode(TreeItem treeItem) {
         String path = (String) treeItem.getData();
         String prefix = String.format("%s%s", path, Objects.equals("/", path) ? "" : "/");
-        NodeAddDialog nodeAddDialog = new NodeAddDialog(getShell(), SWT.NONE, prefix, "添加节点");
+        NodeAddDialog nodeAddDialog = new NodeAddDialog(getShell(), SWT.NONE, prefix, "添加节点", new NodeAddDialog.OkListener() {
+            @Override
+            public void onOk(NodeAddDialog.NameValue nameValue) {
+                try (CuratorFramework connection = ZkManager.getConnection()) {
+                    if (connection != null) {
+                        connection.create().withMode(nameValue.getCreateMode()).
+                                forPath(String.format("%s%s", prefix, nameValue.getName()),
+                                        nameValue.getValue().getBytes(StandardCharsets.UTF_8));
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+                updateItem(treeItem);
+            }
+        });
         nodeAddDialog.open();
     }
 }

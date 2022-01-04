@@ -1,7 +1,5 @@
 package io.github.jast90.zk.client.ui;
 
-import io.github.jast90.zk.client.ZkManager;
-import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -14,8 +12,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
-
-import java.nio.charset.StandardCharsets;
 
 public class NodeAddDialog extends Dialog {
 
@@ -30,7 +26,7 @@ public class NodeAddDialog extends Dialog {
     private Button btnOk;
     private Label lblNewLabel;
     private String prefix;
-
+    private OkListener okListener;
 
     /**
      * Create the dialog.
@@ -38,9 +34,10 @@ public class NodeAddDialog extends Dialog {
      * @param parent
      * @param style
      */
-    public NodeAddDialog(Shell parent, int style, String prefix, String title) {
+    public NodeAddDialog(Shell parent, int style, String prefix, String title, OkListener okListener) {
         super(parent, style);
         this.prefix = prefix;
+        this.okListener = okListener;
         setText(title);
     }
 
@@ -109,21 +106,11 @@ public class NodeAddDialog extends Dialog {
                 if (btnEphemeral.getSelection()) {
                     createMode = CreateMode.EPHEMERAL;
                 }
-                CuratorFramework connection = null;
-                try {
-                    connection = ZkManager.getConnection();
-                    if (connection != null) {
-                        connection.create().withMode(createMode).
-                                forPath(String.format("%s%s", prefix, name.getText()),
-                                        value.getText().getBytes(StandardCharsets.UTF_8));
-                    }
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                } finally {
-                    if (connection != null) {
-                        connection.close();
-                    }
-                }
+                NameValue nameValue = new NameValue();
+                nameValue.setName(name.getText());
+                nameValue.setValue(value.getText());
+                nameValue.setCreateMode(createMode);
+                okListener.onOk(nameValue);
                 shell.close();
             }
         });
@@ -138,5 +125,38 @@ public class NodeAddDialog extends Dialog {
 
     }
 
+    public interface OkListener {
+        void onOk(NameValue nameValue);
+    }
+
+    public class NameValue {
+        private String name;
+        private String value;
+        private CreateMode createMode;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        public CreateMode getCreateMode() {
+            return createMode;
+        }
+
+        public void setCreateMode(CreateMode createMode) {
+            this.createMode = createMode;
+        }
+    }
 
 }
