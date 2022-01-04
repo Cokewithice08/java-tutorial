@@ -36,14 +36,7 @@ public class MyTree extends Composite {
                 if (item.getData () != null) return;
                 item.dispose ();
             }
-            String str = root.getText();
-            List<TreeNode<String>> datas = getTreeNodes(root);
-            for (TreeNode<String> data : datas) {
-                TreeItem item = new TreeItem (root, 0);
-                item.setText (data.getLabel());
-                item.setData (data.getData());
-                new TreeItem (item, 0);
-            }
+            updateItem(root);
         });
 
         tree.addListener(SWT.Selection,event -> {
@@ -78,13 +71,27 @@ public class MyTree extends Composite {
         refreshNode.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                TreeItem treeItem = tree.getSelection()[0];
-                tree.update();
-                tree.getParent().layout();
+            TreeItem treeItem = tree.getSelection()[0];
+            updateItem(treeItem);
             }
         });
     }
 
+    public void updateItem(TreeItem treeItem){
+        TreeItem[] items = treeItem.getItems();
+        if(items!=null){
+            for (TreeItem item : items) {
+                item.dispose();
+            }
+        }
+        List<TreeNode<String>> datas = getTreeNodes(treeItem);
+        for (TreeNode<String> data : datas) {
+            TreeItem item = new TreeItem (treeItem, 0);
+            item.setText (data.getLabel());
+            item.setData (data.getData());
+            new TreeItem (item, 0);
+        }
+    }
     public void updateTree(){
         for (TreeNode each : getRootNodes()) {
             TreeItem treeItem = new TreeItem (tree, 0);

@@ -40,6 +40,9 @@
     <profiles>
         <profile>
             <id>mac</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.eclipse.platform</groupId>
@@ -50,6 +53,7 @@
         </profile>
         <profile>
             <id>win</id>
+
             <dependencies>
                 <dependency>
                     <groupId>org.eclipse.platform</groupId>
@@ -59,4 +63,35 @@
             </dependencies>
         </profile>
     </profiles>
+
+    <build>
+        <finalName>zk-client-gui</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.5.5</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>io.github.jast90.zk.client.ZookeeperClient</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <finalName>${project.name}</finalName>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
