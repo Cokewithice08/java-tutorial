@@ -5,8 +5,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 
@@ -58,7 +56,7 @@ public class AbortDialog extends Dialog {
 		Canvas wechatPay = new Canvas(shell, SWT.NONE);
 
 		wechatPay.addPaintListener(e -> {
-			Image image = new Image(display, getClasspathImage("wechatPay.jpg"));
+			Image image = new Image(display, getClasspathImage("static/image/wechatPay.jpg"));
 			e.gc.drawImage(image, 0, 0);
 			image.dispose();
 		});
@@ -66,7 +64,7 @@ public class AbortDialog extends Dialog {
 		Canvas alipay = new Canvas(shell, SWT.NONE);
 		
 		alipay.addPaintListener(e -> {
-			Image image = new Image(display, getClasspathImage("alipay.jpg"));
+			Image image = new Image(display, getClasspathImage("static/image/alipay.jpg"));
 			e.gc.drawImage(image, 53, 0);
 			image.dispose();
 		});
