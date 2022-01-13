@@ -9,23 +9,16 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>design-pattern</artifactId>
+    <groupId>io.github.jast90.cache</groupId>
+    <artifactId>cache</artifactId>
     <packaging>pom</packaging>
+    <modules>
+        <module>caffeine</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
-
-    <modules>
-        <module>abstract-factory</module>
-        <module>builder</module>
-        <module>factory-method</module>
-        <module>prototype</module>
-        <module>simple-factory</module>
-        <module>decorator</module>
-        <module>chain-of-responsibility</module>
-        <module>singleton</module>
-    </modules>
 
 </project>

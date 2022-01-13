@@ -30,7 +30,7 @@ import java.util.Random;
 public class HA {
     private final static String dbHost = "localhost";
     private final static String dbPort = "3307";
-    private final static String zkHost = "localhost";
+    private final static String zkHost = "192.168.56.102";
     private final static String zkPort = "2181";
 
     public static void main(String[] args) throws SQLException {
@@ -90,9 +90,10 @@ public class HA {
 
         // 创建 ShardingSphereDataSource
         DataSource dataSource ;
-        dataSource = ShardingSphereDataSourceFactory.createDataSource(modeConfig,dataSourceMap, Collections.singletonList(shardingRuleConfig),
-                new Properties());
-//        dataSource = ShardingSphereDataSourceFactory.createDataSource(modeConfig);
+//        dataSource = ShardingSphereDataSourceFactory.createDataSource(modeConfig,dataSourceMap,
+//                Collections.singletonList(shardingRuleConfig),
+//                new Properties());
+        dataSource = ShardingSphereDataSourceFactory.createDataSource(modeConfig);
         try (Connection conn = dataSource.getConnection();) {
 //            batchInsert(conn);
             query(conn);

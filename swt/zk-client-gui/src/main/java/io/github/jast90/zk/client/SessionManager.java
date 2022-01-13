@@ -11,7 +11,7 @@ public class SessionManager {
     private final static String CURRENT_PATH = "path";
 
     private static Cache<String, Object> cache = Caffeine.newBuilder()
-            .expireAfterWrite(10, TimeUnit.MINUTES)
+//            .expireAfterWrite(10, TimeUnit.MINUTES)
             .maximumSize(10_000)
             .build();
 

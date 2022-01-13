@@ -71,8 +71,8 @@ public class MyTree extends Composite {
         refreshNode.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-            TreeItem treeItem = tree.getSelection()[0];
-            updateItem(treeItem);
+                TreeItem treeItem = tree.getSelection()[0];
+                updateItem(treeItem);
             }
         });
     }
