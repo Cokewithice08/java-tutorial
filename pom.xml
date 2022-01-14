@@ -30,6 +30,7 @@
         <module>java-swing</module>
         <module>sharding-jdbc-ha</module>
         <module>cache</module>
+        <module>jta</module>
     </modules>
     <name>java-tutorial</name>
     <packaging>pom</packaging>
