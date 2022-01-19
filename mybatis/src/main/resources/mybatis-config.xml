@@ -28,6 +28,7 @@
         <mapper resource="io/github/jast90/mybatis/cache/BlogMapper.xml"/>
         <mapper resource="io/github/jast90/mybatis/cache/Blog2CacheMapper.xml"/>
         <mapper resource="io/github/jast90/mybatis/param/UserMapper.xml"/>
+        <mapper resource="io/github/jast90/mybatis/middle/MiddleMapper.xml"/>
     </mappers>
 
 
